@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="msg1">
+        <h4>{{msg1}}</h4>
+        <h2>单选框</h2>
+        <label>
+            <input type="radio" v-model="gender" value="M" name="gender">男
+        </label>
+        <label>
+            <input type="radio" v-model="gender" value="F" name="gender">女
+        </label>
+        <h3>性别: {{gender==''?'未选择':gender=='M'?'男':'女'}}</h3>
+        <h2>多选框</h2>
+        <label>
+            <input type="checkbox" v-model="ball" value="volleyball" name="ball">羽毛球
+        </label>
+        <label>
+            <input type="checkbox" v-model="ball" value="basketball" name="ball">篮球
+        </label>
+        <label>
+            <input type="checkbox" v-model="ball" value="football" name="ball">足球
+        </label>
+        <h3>运动: {{ball==''?'未选择':ball}}</h3>                            
+        <h2>下拉菜单</h2>
+        <select v-model="choose">
+            <option value="1">11111</option>
+            <option value="2">2222222</option>
+            <option value="3">333333</option>
+            <option value="4">444444</option>
+        </select>
+        <h3>你选择的是: {{choose}}</h3>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                msg1:'',
+                gender:'',
+                ball:[],
+                choose:1
+            }
+        })
+    </script>
+</body>
+</html>

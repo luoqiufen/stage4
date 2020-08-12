@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .classA{
+            background: rgb(238, 182, 189);
+        }
+        .classB{
+            background: rgb(136, 245, 245);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <table border="1" cellspacing="0" width="300">
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+            </tr>
+            <!-- <tr  align="center" v-for="(stu,i) in stus" :class='{classA:true,classB:i%2==1}'> -->
+            <tr v-for="(stu,i) in stus" :class='i%2==1?"classA":"classB"'>
+                <!-- <td v-for="value in stu">{{value}}</td> -->
+                <td>{{stu.id}}</td>
+                <td>{{stu.name}}</td>
+                <td>{{stu.gender == 'M'?'男':'女'}}</td>
+            </tr>
+        </table>
+        <button @click="sort">点击按照性别排序</button>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                stus: [
+                    { id: 1, name: '虹猫', gender: 'M' },
+                    { id: 2, name: '蓝兔', gender: 'F' },
+                    { id: 3, name: '莉莎', gender: 'F' },
+                    { id: 4, name: '跳跳', gender: 'M' },
+                    { id: 5, name: '逗逗', gender: 'M' },
+                ]
+            },
+            methods: {
+                sort(){
+                    return function (a,b) {
+                        return (a.gender.charCodeAt(0) - b.gender.charCodeAt(0));
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

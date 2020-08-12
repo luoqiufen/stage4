@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .out{
+            width: 400px;
+            height: 400px;
+            background-color: rgb(59, 238, 178);
+        }
+        .inner{
+            width: 200px;
+            height: 200px;
+            background: rgb(36, 144, 245);
+            position: relative;
+        }
+        .style_red{
+            border: 1px solid rgb(76, 7, 104);
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="out" @click="c1">
+            <div class="inner" @click.stop="c2"></div>
+        </div>
+        <a :href="baidu" @click.prevent="c1">百度</a>
+        <input type="text" @blur="show">
+        <div>
+            <h3>v-bind</h3>
+            <button @click="change">切换图片</button>
+            <img v-bind:src="path" alt="" width="300">
+        </div>
+        <div :class="red"></div>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                path:'./8.jpg',
+                baidu:'http://www.baidu.com',
+                red:'style_red'
+            },
+            methods: {
+                change(){
+                    this.path = this.path == './8.jpg'?'./10.jpg':'./8.jpg';
+                },
+                show(){
+                    alert('这是show');
+                },
+                c1(){
+                    alert('this is c1');
+                },
+                c2(){
+                    alert('this is c2');
+                }
+            },
+        })
+    </script>
+</body>
+</html>
