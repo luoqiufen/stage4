@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .classA{
+        .classA {
             background: rgb(238, 182, 189);
         }
-        .classB{
+
+        .classB {
             background: rgb(136, 245, 245);
         }
     </style>
@@ -48,12 +49,19 @@
                 ]
             },
             methods: {
-                sort(){
-                    return function (a,b) {
-                        return (a.gender.charCodeAt(0) - b.gender.charCodeAt(0));
+                sort() {
+                    this.f = !this.f;
+                    if (this.f) {
+                        this.stus.sort((a, b) => {
+                            return a.gender.charCodeAt(0) - b.gender.charCodeAt(0)
+                        })
+                    } else {
+                        this.stus.sort((a, b) => {
+                            return a.id - b.id
+                        })
                     }
                 }
-            },
+            }
         })
     </script>
 </body>

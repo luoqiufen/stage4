@@ -50,22 +50,23 @@
             methods: {
                 add() {
                     let arr = (this.pro).trim().split(' ');
+                    let obj = {
+                        id:arr[0],
+                        name:arr[1],
+                        price:arr[2],
+                        num:arr[3]
+                    }
                     
                     let f = false;//假设不存在相同的商品
-                    let i = -1;//假设有相同时的下标
                     for(k in this.pros){
-                        if(this.pros[k][1] == arr[1]){
+                        if(this.pros[k].name == obj.name){
                             f = true;//假设错误,有相同
-                            i = k
-                            this.pros[k][3] = Number(this.pros[k][3])+Number(arr[3]);
-                            // arr='';
+                            this.pros[k].num = Number(this.pros[k].num)+Number(obj.num);
                         }
                     }
-                    // arr==''?this.pros:this.pros.push(arr);
-                    if(f){
-                        arr = this.pros.splice(i,1)[0];
+                    if(!f){
+                        this.pros.push(obj);
                     }
-                    this.pros.push(arr);
                 },
                 del(index){
                     this.pros.splice(index,1);

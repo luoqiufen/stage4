@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h3>省份: </h3>
+        <select v-model="index">
+            <option :value="i" v-for="(pro,i) in pros">{{ pro }}</option>
+        </select>
+
+        <h3>城市1(watch实现):</h3>
+        <select v-model="idx">
+            <option :value="i"  v-for="(city,i) in cities1">{{ city }}</option>
+        </select>
+
+        <h3>城市2(computed实现):</h3>
+        <select v-model="idx">
+            <option :value="i"  v-for="(city,i) in cities2">{{ city }}</option>
+        </select>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                pros:[
+                    "江苏","山东","安徽","浙江","湖北"
+                ],
+                cities1:[],
+                index:0,
+                idx:0,
+                cities: [
+                    ["南京","苏州","扬州","泰州","徐州"],
+                    ["济南","日照","青岛","潍坊","莱芜"],
+                    ["合肥","六安","滁州","黄山","蚌埠"],
+                    ["宁波","杭州","温州","金华","义乌"],
+                    ["武汉","黄冈","黄石","宜昌","十堰"]
+                ]
+            },
+            methods:{},
+            computed: {
+                cities2(){
+                    // 依赖某个省份,根据发生的变化,返回不同的结果
+                    return this.cities[this.index];
+                }  
+            },
+            
+            watch: {
+                index:{
+                    handler(newVal){
+                        // 根据index的变化去给cities赋值
+                        this.cities1 = this.cities[newVal];
+                        this.idx=0;
+                    },
+                    immediate:true
+                }
+            },
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            width: 50px;
+        }
+        table{
+            width: 400px;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        编号:
+        <select v-model="index">
+            <option :value="i" v-for="(pro,i) in pros">{{pro.id}}</option>
+        </select>
+        商品名:
+        <select v-model="index">
+            <option :value="i"  v-for="(pro,i) in pros">{{pro.name}}</option>
+        </select>
+        价格:
+        <select>
+            <option value="">{{pro.price}}</option>
+        </select>
+        数量:
+        <input type="text" :value="pro.num" >
+        <button @click="add">添加</button>
+        <br>
+        <br>
+        <table border="1" cellspacing="0">
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>价格</th>
+                <th>数量</th>
+            </tr>
+            <tr v-for="(p,i) in products">
+                <td v-for="value in p">{{value}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                index:0,
+                pro:[],
+                pros:[
+                    {id:'1001',name:'华为',price:'5000',num:58},
+                    {id:'1002',name:'小米',price:'3500',num:60},
+                    {id:'1003',name:'魅族',price:'3000',num:45},
+                    {id:'1004',name:'锤子',price:'3800',num:55},
+                ],
+                products:[]
+            },
+            methods:{
+                add(){
+                    this.products.push(this.pro);
+                }
+            },
+            watch: {
+                index:{
+                    handler(newVal){
+                        this.pro = this.pros[newVal];
+                    },
+                    immediate:true
+                }
+            },
+        })
+    </script>
+</body>
+</html>
