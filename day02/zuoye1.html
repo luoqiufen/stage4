@@ -12,6 +12,9 @@
             width: 400px;
             line-height: 30px;
         }
+        table tr{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -25,11 +28,9 @@
             <option :value="i"  v-for="(pro,i) in pros">{{pro.name}}</option>
         </select>
         价格:
-        <select>
-            <option value="">{{pro.price}}</option>
-        </select>
+            <span>{{pro.price}}</span>
         数量:
-        <input type="text" :value="pro.num" >
+        <input type="text" v-model="num">
         <button @click="add">添加</button>
         <br>
         <br>
@@ -54,16 +55,27 @@
                 index:0,
                 pro:[],
                 pros:[
-                    {id:'1001',name:'华为',price:'5000',num:58},
-                    {id:'1002',name:'小米',price:'3500',num:60},
-                    {id:'1003',name:'魅族',price:'3000',num:45},
-                    {id:'1004',name:'锤子',price:'3800',num:55},
+                    {id:'1001',name:'华为',price:'5000',num:0},
+                    {id:'1002',name:'小米',price:'3500',num:0},
+                    {id:'1003',name:'魅族',price:'3000',num:0},
+                    {id:'1004',name:'锤子',price:'3800',num:0},
                 ],
-                products:[]
+                products:[],
+                num:1
             },
             methods:{
                 add(){
-                    this.products.push(this.pro);
+                    let f = false;
+                    for(let k in this.products){
+                        if(this.products[k].name == this.pro.name){
+                            f = true;
+                            this.pro.num = this.products[k].num+this.num;
+                        }
+                    }
+                    if(!f){
+                        this.pro.num = this.num;
+                        this.products.push(this.pro);
+                    }
                 }
             },
             watch: {

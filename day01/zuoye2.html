@@ -58,7 +58,7 @@
                     }
                     
                     let f = false;//假设不存在相同的商品
-                    for(k in this.pros){
+                    for(let k in this.pros){
                         if(this.pros[k].name == obj.name){
                             f = true;//假设错误,有相同
                             this.pros[k].num = Number(this.pros[k].num)+Number(obj.num);
