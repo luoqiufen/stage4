@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            float: left;
+            border: 1px solid red;
+            width: 120px;
+            margin-left: 10px;
+            padding: 5px;
+        }
+        .box img{
+            width: 120px;
+        }
+        .box span{
+            line-height: 28px;
+        }
+        br{
+            clear:both
+        }
+        .show{
+            width: 550px;
+        }
+        .show table{
+            line-height: 35px;
+            width:550px;
+        }
+        .show div{
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <list></list>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component('list', {
+            data() {
+                return {
+                    total:0,//总价
+                    pro: {},//点击按钮添加的商品
+                    pros: [],//购物车商品
+                    // 商品列表
+                    products: [
+                        { url:'./a_49.png',name: '华为', price: '5000', num: 50 },
+                        { url:'./a_50.png',name: '小米', price: '3500', num: 50 },
+                        { url:'./a_53.png',name: '魅族', price: '3000', num: 50 },
+                        { url:'./a_54.png',name: '锤子', price: '3800', num: 50 },
+                    ]
+                }
+            },
+            methods: {
+                add(index) {
+                    this.pro = {
+                        name: this.products[index].name,
+                        price: this.products[index].price,
+                        num:1
+                    };
+                    let f = false;
+
+                    for(let k in this.pros){
+                        if(this.pros[k].name == this.pro.name){
+                            f = true;
+                            this.pros[k].num = this.pros[k].num+1;
+                        }
+                    }
+                    if(!f){
+                        this.pros.unshift(this.pro);
+                    }
+                    this.getTotal()
+                },
+                getSum(){
+                    for(let k in this.pros){
+                        this.total+=(this.pros[k].price)*this.pros[k].num
+                    }
+                },
+                getTotal(){
+                    this.total=(this.pro.price-0)+(this.total-0)
+                }
+            },
+            template: `
+            <div>
+                <h3>商品列表</h3>
+                <div class="box" v-for="({url,name,price,num},i) in products">
+                    <img :src=url>
+                    <span>名称:{{name}}</span><br>
+                    <span>价格:{{price}}</span><br>
+                    <span>库存:{{num}}</span>
+                    <button @click="add(i)">添加购物车</button>
+                </div>
+                <br>
+                <br>
+                <hr>
+                <show :pro_car="pros" :sum="total" @father="getTotal"></show>
+            </div>
+            `,
+            components: {
+                'show': {
+                    props: {
+                        sum:Number,
+                        pro_car: {
+                            type: Array,
+                            default() {
+                                return []
+                            }
+                        },
+                    },
+                    methods: {
+                        up(key){
+                            if(this.pro_car[key].num<20){
+                                this.pro_car[key].num++;
+                                this.$emit('father');
+                            }
+                        },
+                        down(key){
+                            if(this.pro_car[key].num>1){
+                                this.pro_car[key].num--;
+                                this.$emit('father');
+                            }
+                        }
+                    },
+                    template: `
+                    <div>
+                        <div class="show">
+                            <h3>购物车</h3>
+                            <table border="1" cellspacing="0">
+                                <tr>
+                                    <th>商品名称</th>
+                                    <th>价格</th>
+                                    <th>数量</th>
+                                    <th>小计</th>
+                                </tr>
+                                <tr v-for="({name,price,num},i) in pro_car"  align="center">
+                                    <td>{{ name }}</td>
+                                    <td>{{ price }}</td>
+                                    <td>
+                                        <button @click="down(i)">-</button>
+                                        {{ num }}
+                                        <button @click="up(i)">+</button>
+                                    </td>
+                                    <td>{{ price*num }}</td>
+                                </tr>
+                            </table>
+                            <div>总价: {{ sum }}</div>
+                        </div>
+                    </div>
+                    `
+                },
+            }
+        })
+
+
+
+
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {},
+
+        })
+    </script>
+</body>
+
+</html>
