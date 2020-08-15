@@ -83,6 +83,9 @@
                 },
                 getTotal(){
                     this.total=(this.pro.price-0)+(this.total-0)
+                },
+                getTotal2(){
+                    this.total=(this.total-0)-(this.pro.price-0)
                 }
             },
             template: `
@@ -98,7 +101,7 @@
                 <br>
                 <br>
                 <hr>
-                <show :pro_car="pros" :sum="total" @father="getTotal"></show>
+                <show :pro_car="pros" :sum="total" @father1="getTotal" @father2="getTotal2"></show>
             </div>
             `,
             components: {
@@ -116,14 +119,23 @@
                         up(key){
                             if(this.pro_car[key].num<20){
                                 this.pro_car[key].num++;
-                                this.$emit('father');
+                                // this.$emit('father1');
                             }
                         },
                         down(key){
                             if(this.pro_car[key].num>1){
                                 this.pro_car[key].num--;
-                                this.$emit('father');
+                                // this.$emit('father2');
                             }
+                        }
+                    },
+                    computed: {
+                        t(){
+                            let s=0
+                            this.pro_car.forEach(val=>{
+                                s+=val.price*val.num
+                            })
+                            return s;
                         }
                     },
                     template: `
@@ -148,7 +160,7 @@
                                     <td>{{ price*num }}</td>
                                 </tr>
                             </table>
-                            <div>总价: {{ sum }}</div>
+                            <div>总价: {{ t }}</div>
                         </div>
                     </div>
                     `
