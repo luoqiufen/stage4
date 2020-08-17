@@ -57,7 +57,6 @@ export default new VueRouter({
       component:Photo,
       redirect:'/photo/show',
       children:[
-        ---
         {
           path:'show',
           component:Show
