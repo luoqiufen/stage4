@@ -116,8 +116,8 @@
 		Vue.component('SearchBox', {
 			data() {
 				return {
-					str:'',
-					show:false,
+					str: '',
+					show: false,
 					listArr: [
 						'HTML5 + CSS3',
 						'JavaScript',
@@ -130,10 +130,10 @@
 				}
 			},
 			methods: {
-				toggle(){
+				toggle() {
 					this.show = !this.show;
 				},
-				receive(d){
+				receive(d) {
 					this.str = d;
 				}
 			},
@@ -150,23 +150,23 @@
 				</div>
 			</div>
 			`,
-			components:{
-				'li-list':{
-					props:{
-						lists:{
-							type:Array,
-							default(){
+			components: {
+				'li-list': {
+					props: {
+						lists: {
+							type: Array,
+							default() {
 								return []
 							}
 						}
 					},
 					methods: {
-						send(d){
+						send(d) {
 							console.log(d)
-							this.$emit('toFather',d)
+							this.$emit('toFather', d)
 						}
 					},
-					template:`
+					template: `
 					<ul class='listNode'>
 						<li v-for="list in lists" @click="send(list)">{{list}}</li>
 					</ul>
@@ -178,9 +178,9 @@
 
 		// 创建vue实例
 		new Vue({
-			el:'#app',
+			el: '#app',
 			data: {},
-			template:`
+			template: `
 			<div>
 				<SearchBox />	
 			</div>
