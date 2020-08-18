@@ -5,3 +5,9 @@
         <button>新建</button>
     </div>
 </template>
+
+<style scoped>
+    h2{
+        color: lightgreen;
+    }
+</style>
