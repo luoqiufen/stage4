@@ -74,19 +74,8 @@
                     if(!f){
                         this.pros.unshift(this.pro);
                     }
-                    this.getTotal()
                 },
-                getSum(){
-                    for(let k in this.pros){
-                        this.total+=(this.pros[k].price)*this.pros[k].num
-                    }
-                },
-                getTotal(){
-                    this.total=(this.pro.price-0)+(this.total-0)
-                },
-                getTotal2(){
-                    this.total=(this.total-0)-(this.pro.price-0)
-                }
+                
             },
             template: `
             <div>
@@ -101,7 +90,7 @@
                 <br>
                 <br>
                 <hr>
-                <show :pro_car="pros" :sum="total" @father1="getTotal" @father2="getTotal2"></show>
+                <show :pro_car="pros" :sum="total"></show>
             </div>
             `,
             components: {
@@ -111,21 +100,21 @@
                         pro_car: {
                             type: Array,
                             default() {
-                                return []
+                                return [];
                             }
                         },
+                    },
+                    created() {
                     },
                     methods: {
                         up(key){
                             if(this.pro_car[key].num<20){
                                 this.pro_car[key].num++;
-                                // this.$emit('father1');
                             }
                         },
                         down(key){
                             if(this.pro_car[key].num>1){
                                 this.pro_car[key].num--;
-                                // this.$emit('father2');
                             }
                         }
                     },
@@ -167,8 +156,6 @@
                 },
             }
         })
-
-
 
 
         new Vue({
