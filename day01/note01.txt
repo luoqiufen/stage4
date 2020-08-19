@@ -11,11 +11,18 @@
 vue是一个轻量的以数据为驱动的MVVM框架,它的核心是一个响应式的数据绑定系统
 常用于SPA应用(single page application 单页面应用)
 MVVM: 
-    M: model数据模型,从后端获取到的数据
+    M: model 数据模型,从后端获取到的数据
     V: View 视图页面,展示给用户看到的页面
     VM: ViewModel,把Model和View联系起来,Vue 起的就是这个桥梁作用
 
     当数据发生变化时,视图页面也会发生变化: 视图改变,数据也会发生改变.这就是双向数据绑定
+
+MVVM优点
+    MVVM模式和MVC模式一样，主要目的是分离视图（View）和模型（Model），有几大优点:
+        1. 低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的"View"上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。
+        2. 可重用性。你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。
+        3. 独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计，使用Expression Blend可以很容易设计界面并生成xaml代码。
+        4. 可测试。界面素来是比较难于测试的，测试可以针对ViewModel来写。
 
 1.Vue的指令
     Vue中在页面标签中带有v-开头的特殊属性就叫做指令,实际上就是对标签属性的一个封装
@@ -46,6 +53,10 @@ MVVM:
         v-bind:src ==> :src
 
     6) v-model 实现数据的双向绑定
+    限制:
+        <input>
+        <select>
+        <textarea>
 
 
 练习1:
@@ -60,7 +71,7 @@ MVVM:
 
 
 练习2:
-    使用v-model做一个联动下拉菜单\
+    使用v-model做一个联动下拉菜单
     
 
 
