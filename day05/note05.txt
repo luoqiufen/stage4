@@ -19,7 +19,6 @@
         使用router-link标签进行路由的跳转,但是在业务逻辑代码中,无法使用router-link标签,所以只能使用编程式导航
         使用编程式导航,需要借助router对象
         在组件内部,可以使用this.$router访问对象对象
-    
 
         this.$router.push(location, onComplete?, onAbort?) 
 
