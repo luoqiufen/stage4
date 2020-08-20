@@ -1,0 +1,49 @@
+vuex
+    vue-router,vuex都是vue官方提供并维护的插件
+        1. vuex是一个专门为vue设计的集中式的状态管理模式
+        2. 把每个组件中共享的状态抽取出来,以全局单例模式去管理,无论在哪个组件中,都可以获取或触发行为
+        3. vuex的核心是store,它包含应用中的大部分的state
+
+    什么时候使用vuex
+        1. 当项目数据足够多,需要管理的状态足够复杂时
+        2. 多个组件共同依赖同一个状态时
+        3. 多个组件都可以改变同一个状态
+
+    vuex的组成部分
+        state: 存放状态
+        getter: 过滤状态
+        mutation: 修改状态
+        action: 类似于mutation
+        mudule: 模块化
+
+    1. state
+        组件中获取state的几种方式
+        1) 通过store对象获取其中的state中的状态
+            this.$store.state.xxx
+        2) 使用mapState辅助函数
+            mapState({ key: state=>state.xxx })
+            mapState( ["key1","key2"... ] )
+        
+        能够修改state状态的只有mutation 
+
+
+
+
+1. 在state中定义共享的状态或数据
+
+2. 在各个组件中获取状态并渲染到视图模板上
+    获取?
+    this.$store.state.xxx
+    ...mapState(['xxx','xxx',...])
+
+3. 用户在页面派发事件
+    派发?
+        this.$store.dispatch('事件名')
+        派发的事件在actions中定义
+        actions中定义的事件里提交mutation
+        context.commit('mutation中定义的事件')
+        ...mapActions(['xxx','xxx',...])
+
+4. mutation里提交修改
+    this.$store.commit('mutation中定义的事件')
+    ...mapMutations(['xxx','xxx',...])

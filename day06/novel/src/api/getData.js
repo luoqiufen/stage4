@@ -4,10 +4,11 @@ import $ from 'jquery';
 // 获取某个分类的小说列表
 function getNovelList(id) {
     return new Promise((resolve, reject) => {
-        let url = `http://www.biquge.info/list/${id}_1.html`;
+        let url = `/list/${id}_1.html`;
         $.ajax({
-            url: 'http://localhost:4000/getdata',
-            data: { url: url },
+            // url: 'http://localhost:4000/getdata',
+            // data: { url: url },
+            url:url,
             success(result) {
                 let $dom = $(result);
                 let $items = $dom.find('.item');
@@ -33,10 +34,12 @@ function getNovelList(id) {
 
 // 获取某个小说的章节列表
 function getChapter(path){
+    path = path.substring(22);
     return new Promise(resolve => {
         $.ajax({
-            url:'http://localhost:4000/getdata',
-            data:{url:path},
+            // url:'http://localhost:4000/getdata',
+            // data:{url:path},
+            url:path,
             success(result){
                 let $dds = $(result).find('#list dd');
                 let chapters = []
@@ -59,8 +62,9 @@ function getContent(path){
     console.log(path)
     return new Promise(resolve => {
         $.ajax({
-            url:'http://localhost:4000/getdata',
-            data:{url:path},
+            // url:'http://localhost:4000/getdata',
+            // data:{url:path},
+            url:path,
             success(result){
                 let con = $(result).find('#content').html();
                 resolve(con)

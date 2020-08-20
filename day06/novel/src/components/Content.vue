@@ -57,6 +57,7 @@ export default {
         text-align-last: left;
         overflow: scroll;
         height: 580px;
+        margin: 5px 10px;
     }
     .close {
         width: 20px;
