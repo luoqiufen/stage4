@@ -1,0 +1,11 @@
+D:\web2004\stage4\day08\client\src\api:
+下载jq文件 npm i -S jquery
+
+D:\web2004\stage4\day08\server
+    命令:
+        cnpm init -y 自动生成配置文件
+        cnpm i -S express ejs mongoose
+
+
+
+
