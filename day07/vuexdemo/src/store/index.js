@@ -20,7 +20,7 @@ export default new Vuex.Store({
       state.products.forEach((val)=>{
         let name = val.name;
         let price = val.price;
-        let count = 0;
+        let count = val.count || 1;
         arr.push({
           name,price,count
         })
@@ -45,6 +45,30 @@ export default new Vuex.Store({
   mutations: {
     addPro(state,payload){
       state.products.push(payload.pro);
+    },
+    addCount(state,payload){
+      state.products[payload.idx].count++
+    },
+    reduceCount(state,payload){
+      let pros = state.products;
+      let name = payload.name;
+      for(let i=0;i<pros.length;i++){
+        if(name==pros[i].name){
+          // 找到相同名称
+          if(state.products[i].count>1){
+            state.products[i].count--;
+          }
+          break;
+        }
+      }
+      
+    },
+    removeAll(state){
+      state.products = [];
+    },
+    removePro(state,payload){
+      console.log(this.getters.cartPro);
+      state.products.splice(payload.idx,1);
     },
     increase(state){
       console.log('mutation---increase');
