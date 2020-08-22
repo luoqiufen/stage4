@@ -2,7 +2,7 @@ const express = require('express');
 const {User} = require('./model');
 const app = express();
 
-app.listen(4000);
+app.listen(4000);   
 
 app.use(function(req,res,next){
     res.header('Access-Control-Allow-Origin','*');

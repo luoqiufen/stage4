@@ -8,7 +8,7 @@
             params: 传递的参数(对象)
 
     9. 路由对象
-        表示当前机会的路由的基本信息,包括 fullPath, params, path, query, name...
+        表示当前激活的路由的基本信息,包括 fullPath, params, path, query, name...
         注意,路由不是不变的,每次路由切换成功后,都会产生一个新的路由对象
         在组件中使用$route来获取路由信息
 
@@ -18,7 +18,7 @@
     10. 编程式导航
         使用router-link标签进行路由的跳转,但是在业务逻辑代码中,无法使用router-link标签,所以只能使用编程式导航
         使用编程式导航,需要借助router对象
-        在组件内部,可以使用this.$router访问对象对象
+        在组件内部,可以使用this.$router访问路由对象
 
         this.$router.push(location, onComplete?, onAbort?) 
 
@@ -44,7 +44,7 @@
 
     12. 路由中的守卫函数
         1) router对象中设置全局守卫函数,,对所有路由都有效
-        2) 路由独享守卫,配置在routes属性中某个路由里面,支队该路由有效
+        2) 路由独享守卫,配置在routes属性中某个路由里面,只对该路由有效
         3) 配置在某个组件中,对该组件有效
 
     13. 数据的获取
