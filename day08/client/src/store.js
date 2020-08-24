@@ -14,6 +14,19 @@ export default new Vuex.Store({
     },
     addEmp(state,payload){
       state.emps.push(payload.emp);
+    },
+    modifyEmp(state,payload){
+      // filter => {payload:xxx}
+      let filter = payload.filter;
+      // data => {xx:xxx,xx:xxx...}
+      let data = payload.data;
+      for(let i=0;i<state.emps.length;i++){
+        let emp = state.emps[i];
+        if(emp.empId == filter.empId){
+          state.emps[i] = data;
+          break;
+        }
+      }
     }
   }
 })

@@ -36,7 +36,51 @@ function addEmp(emp){
     })
 }
 
+function getEmpInfo(empId,empName){
+    return new Promise((resolve,reject) => {
+        ajax({
+            url:'http://localhost:4000/getEmpInfo',
+            data:{empId,empName},
+            success(result){
+                if(result.status=='SUCCESS'){
+                    resolve(result.data);
+                }else{
+                    reject('error');
+                }
+            },
+            error(err){
+                console.log(err);
+                reject('error');
+            }
+        })
+    })
+
+}
+
+function modify(filter,data){
+    return new Promise((resolve,reject) => {
+        ajax({
+            url:'http://localhost:4000/modify',
+            data:{filter,data},
+            method:'post',
+            success(res){
+                if(res.status=='ERROR'){
+                    reject('修改失败');
+                    return;
+                }
+                resolve('修改成功')
+            },
+            error(err){
+                console.log(err);
+                reject('修改失败');
+            }
+        })
+    })
+}
+
 export default{
     getAllEmps,
-    addEmp
+    addEmp,
+    getEmpInfo,
+    modify
 }

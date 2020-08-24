@@ -52,10 +52,10 @@
       <div class="col-sm-5">edu:</div>
       <div class="col-sm-5">
         <select v-model="edu" class="form-control">
-          <option value="高中以下">高中以下</option>
+          <option value="高中">高中</option>
           <option value="本科">本科</option>
           <option value="大专">大专</option>
-          <option value="研究生以上">研究生以上</option>
+          <option value="研究生">研究生</option>
         </select>
       </div>
     </div>
@@ -108,7 +108,7 @@ export default {
 
 
 <style scoped>
-.row{
+  .row{
     margin-top: 15px;
   }
   .col-sm-5{
