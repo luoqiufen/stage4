@@ -89,7 +89,7 @@ webpack
             style-loader 将样式内联到页面中
             less-loader 认识less页面
         loader需要单独安装并且配置,配置参数:
-            test: 使用政协匹配文件类型(后缀名)
+            test: 使用正则匹配文件类型(后缀名)
             use: 使用哪个或那些loader
 
         将css打包成一个单独的文件
