@@ -1,0 +1,13 @@
+pc-demo
+手动搭建开发环境
+1. 创建package.json,添加依赖进去,然后安装依赖
+2. 创建webpack.base.js和webpack.dev.js
+3. 在根目录下创建src文件夹,作为项目存放代码的地方
+4. 在src下新建
+    assets/  存放静态文件
+    components/  存放组件
+    App.vue  根组件
+    main.js  创建vue实例
+    router.js  路由
+    store.js  状态管理
+    index.html  挂载页面
