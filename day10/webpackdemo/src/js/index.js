@@ -5,10 +5,19 @@ import p from './b.js';
 import '../css/b.css'
 
 // 引入less文件
-import '../less/a.less'
+import a from '../less/a.less'
 
-console.log(div());
-console.log(p());
+// console.log(div());
+// console.log(p());
 
-document.body.appendChild(div());
+let divEle = div();
+divEle.className = a.con;
+
+// 引入图片
+import img from '../img/8.jpg';
+let pic = document.createElement('img');
+pic.src = img;
+
+document.body.appendChild(pic);
+document.body.appendChild(divEle);
 document.body.appendChild(p());

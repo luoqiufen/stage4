@@ -1,7 +1,7 @@
 body {
   background-color: #cee;
 }
-div {
+.con {
   border: 1px solid blue;
 }
 p {
