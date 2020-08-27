@@ -15,12 +15,6 @@ module.exports = merge(base,{
         },
         hot:true,
         proxy:{
-        },
-        before(app){
-            let data = require('./goods.json')
-            app.get('/getData',(req,res) => {
-                res.send(data);
-            })
         }
     }
 })

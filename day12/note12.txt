@@ -1,0 +1,3 @@
+element-ui
+    cnpm i -S element-ui
+    cnpm i D babel-plugin-component

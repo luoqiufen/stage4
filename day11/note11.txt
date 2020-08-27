@@ -11,3 +11,5 @@ pc-demo
     router.js  路由
     store.js  状态管理
     index.html  挂载页面
+
+5. 在components下新建Main.vue,配置相关路由并引用
