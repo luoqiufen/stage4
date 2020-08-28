@@ -9,7 +9,7 @@
 					<ul class="nav-list">
 						<li></li>
 						<!--<li>退出</li>-->
-						<li>登录 | </li>
+						<li @click="open">登录 | </li>
 						<li>注册</li>
 					</ul>
 				</div>  
@@ -24,9 +24,9 @@
 	</div>
 </template>
 <script>
-
+import { mapMutations } from 'vuex'
 	export default {
-		
+		methods: mapMutations(['open'])
 	}
 </script>
 

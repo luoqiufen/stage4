@@ -1,5 +1,13 @@
 <template>
     <div class='index-wrap'>
+		<!-- 登录遮罩层 -->
+		<Dialog>
+			<Login></Login>
+		</Dialog>
+		<!-- 购买遮罩层 -->
+		<Dialog v-show="showBuy">
+			<div> {{ info }} </div>
+		</Dialog>
         <!-- main组件左侧产品信息和消息 -->
         <div class="index-left">
             <div class="index-left-block">
@@ -19,19 +27,8 @@
             <!-- 幻灯片组件 -->
             <slider :imgs="slideArr"></slider>
             <!-- 产品展示  -->
-            <div class="index-board-list">
-                <div class="index-board-item" v-for="(item,idx) in showList" :key="idx">
-                  <div :class="`index-board-${idx}`">
-                    <div class='index-board-item-inner'>
-                      <h2>{{ item .title }}</h2>
-                      <p>{{ item.description }}</p>
-                      <div class="index-board-button">
-                        <el-button type="primary"  size="mini" :disabled='item.saleout'>主要按钮</el-button>
-                      </div>
-                    </div>  
-                  </div>
-                </div>
-            </div>
+            <show-products :products="showList" @buyOne="buyOne" ></show-products>
+			
         </div>
     </div>
 </template>
@@ -40,107 +37,121 @@
     import AllProducts from "./AllProducts"
     import NewList from "./NewList"
     import Slider from "./Slider"
+    import ShowProducts from "./ShowProducts"
+    import Dialog from "./Dialog"
+    import Login from "./Login"
     export default {
-      data(){
-        return {
-          productList:{ /*产品信息*/ 
-                pc:{
-                    title:'PC产品',
-                    list:[
-                        {
-                        name: '爱奇艺视频',
-                        url: 'http://aqiyi.com'
-                        },
-                        {
-                        name: '优酷视频',
-                        url: 'http://youku.com'
-                        },
-                        {
-                        name: '腾讯视频',
-                        url: 'http://tenxun.com',
-                        hot: true
-                        },
-                        {
-                        name: '搜狐视频',
-                        url: 'http://hearstone.com'
-                        }
-                    ]
-                },
-                app:{
-                  title:'手机类应用',
-                  last:true,
-                  list:[
-                        {
-                            name: '淘宝App',
-                            url: 'http://www.taobao.com'
-                        },
-                        {
-                            name: '微信',
-                            url: 'http://weixin.com',
-                            hot: true
-                        },
-                        {
-                            name: '百度地图',
-                            url: 'http://maps.com'
-                        },
-                        {
-                            name: '美团外卖',
-                            url: 'http://phone.com'
-                        } 
-                  ] 
-                }
-          },   
-          showList: [// 产品展示
-            {
-              title: '爱奇艺VIP',
-              description: '全球领先的在线视频网站',
-              toKey: 'analysis',
-              saleout: false
-            },
-            {
-              title: '优酷VIP',
-              description: '这世界很酷',
-              toKey: 'count',
-              saleout: false
-            },
-            {
-              title: '腾讯VIP',
-              description: '中国领先的在线视频媒体平台',
-              toKey: 'forecast',
-              saleout: true
-            },
-            {
-              title: '搜狐VIP',
-              description: '中国领先的综合视频网站,正版高清在线观看',
-              toKey: 'publish',
-              saleout: false
-            }
-          ],
-          slideArr: [// 幻灯片数据
-            {
-              src: require("@slide/pic1.jpg"),
-              title: "1"
-            },
-            {
-              src: require("@slide/pic2.jpg"),
-              title: "2"
-            },
-            {
-              src: require("@slide/pic3.jpg"),
-              title: "3"
-            },
-            {
-              src: require("@slide/pic4.jpg"),
-              title: "4"
-            }
-          ]
-        }
-      },
+		data(){
+			return {
+				showBuy:false,
+				info:'',
+				productList:{ /*产品信息*/ 
+						pc:{
+							title:'PC产品',
+							list:[
+								{
+								name: '爱奇艺视频',
+								url: 'http://aqiyi.com'
+								},
+								{
+								name: '优酷视频',
+								url: 'http://youku.com'
+								},
+								{
+								name: '腾讯视频',
+								url: 'http://tenxun.com',
+								hot: true
+								},
+								{
+								name: '搜狐视频',
+								url: 'http://hearstone.com'
+								}
+							]
+						},
+						app:{
+						title:'手机类应用',
+						last:true,
+						list:[
+								{
+									name: '淘宝App',
+									url: 'http://www.taobao.com'
+								},
+								{
+									name: '微信',
+									url: 'http://weixin.com',
+									hot: true
+								},
+								{
+									name: '百度地图',
+									url: 'http://maps.com'
+								},
+								{
+									name: '美团外卖',
+									url: 'http://phone.com'
+								} 
+						] 
+						}
+				},   
+				showList: [// 产品展示
+					{
+					title: '爱奇艺VIP',
+					description: '全球领先的在线视频网站',
+					toKey: 'analysis',
+					saleout: false
+					},
+					{
+					title: '优酷VIP',
+					description: '这世界很酷',
+					toKey: 'count',
+					saleout: false
+					},
+					{
+					title: '腾讯VIP',
+					description: '中国领先的在线视频媒体平台',
+					toKey: 'forecast',
+					saleout: true
+					},
+					{
+					title: '搜狐VIP',
+					description: '中国领先的综合视频网站,正版高清在线观看',
+					toKey: 'publish',
+					saleout: false
+					}
+				],
+				slideArr: [// 幻灯片数据
+					{
+					src: require("@slide/pic1.jpg"),
+					title: "1"
+					},
+					{
+					src: require("@slide/pic2.jpg"),
+					title: "2"
+					},
+					{
+					src: require("@slide/pic3.jpg"),
+					title: "3"
+					},
+					{
+					src: require("@slide/pic4.jpg"),
+					title: "4"
+					}
+				]
+			}
+		},
+		methods: {
+			buyOne(title){
+				this.info = title;
+				this.showBuy = true
+			}
+		},
         //   注册组件
         components:{
             AllProducts,
             NewList,
-            Slider
+            Slider,
+			ShowProducts,
+			Dialog,
+			Login
         }
     }
 </script>
@@ -199,11 +210,10 @@
   background: #fff;
   box-shadow: 0 0 1px #ddd;
   padding: 20px;
-  margin-right: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .index-board-item:nth-child(2n){
-  margin-right: 0;
+  margin-left: 20px;
 }
 .index-board-item-inner {
   min-height: 125px;
