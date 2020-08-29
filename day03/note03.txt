@@ -33,6 +33,24 @@
 		子组件通过$emit方法向父组件派发一个自定义事件
 		父组件在调用时,通过v-on(@)绑定自定义事件
 
+
+	1、在父组件中
+       父组件调用子组件步骤：
+      （1）导入子组件：import userManager from '../userManager.vue';
+      （2）引入组件：  components:{userManager},
+      （3）在要使用的地方写上子组件标签：<user-manager></user-manager>  注意不是驼峰命名法，用-连接
+      （4）自定义ref属性名： ref="child" child这个名字可以随意取（注意ref属性的命名不能用驼峰，同时获取的时候也是）
+
+      （5）在子组件中添加chlidMethods方法
+      （6）调用：this.$refs.child.chlidMethods()    chlidMethods这个是子组件中的方法
+
+	2、在子组件中：
+	子组件调用父组件步骤：
+       （1）在父组件中添加@close属性：<user-manager @close="showUserInfo"> </user-manager>  close这个名字可以任意取
+       （2）在父组件中添加showUserInfo方法  名字任意取。名字与子组件无任何关系，只有close子组件会用到    
+       （3）子组件调父组件方法：this.$emit('close');
+	
+
 	slot插槽
 		slot可以扩展组件内容,也就是说在定义组件时可以传递内容,可以分发组件的内容
 

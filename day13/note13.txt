@@ -1,0 +1,32 @@
+mysql命令
+    创建数据库: create database 数据库名
+    进入数据库: use 数据库名
+    创建表结构:
+        create table 表名(
+            字段1 数据类型(长度),
+            字段2 数据类型(长度),
+            字段3 数据类型(长度)
+        )
+        字符串的数据类型有两种 char,varchar,varchar2
+        数字类型 int
+    
+    CRUD: 增删改查
+        向表中添加数据
+        insert into 表名 values (val1,val2,val3,...)
+
+        查询数据
+            select * from 表名
+            * 代表的是通配符
+            
+            有条件的查询某些数据
+            select * from 表名 where id=4;
+            select * from 表名 where id=4 or id=5;
+            select * from 表名 where id!=4; id不等于4
+            select * from 表名 where id<>=4; id不等于4
+
+        修改数据
+            update 表名 set key=value,key=value
+        
+        删除数据
+            delete from 表名 默认删除表中的所有数据
+            delete from 表名 where 条件 有条件的删除数据
