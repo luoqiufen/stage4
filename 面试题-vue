@@ -1,0 +1,291 @@
+1. MVVM:
+    M: model 数据模型,从后端获取到的数据
+    V: View 视图页面,展示给用户看到的页面
+    VM: ViewModel,把Model和View联系起来,Vue 起的就是这个桥梁作用
+
+    Model代表数据模型负责业务逻辑和数据封装，View代表UI组件负责界面和显示，ViewModel监听模型数据的改变和控制视图行为，处理用户交互，简单来说就是通过双向数据绑定把View层和Model层连接起来。在MVVM架构下，View和Model没有直接联系，而是通过ViewModel进行交互，我们只关注业务逻辑，不需要手动操作DOM，不需要关注View和Model的同步工作
+
+2. MVVM的优点(vue的优点)
+    MVVM模式和MVC模式一样，主要目的是分离视图（View）和模型（Model），有几大优点:
+        1. 低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的"View"上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。
+        2. 可重用性。你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。
+        3. 独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计，使用Expression Blend可以很容易设计界面并生成xaml代码。
+        4. 可测试。界面素来是比较难于测试的，测试可以针对ViewModel来写。
+
+3. v-if和v-show
+    区别
+        1.手段：v-if是通过控制dom节点的存在与否来控制元素的显隐；v-show是通过设置DOM元素的display样式，block为显示，none为隐藏；
+        2.编译过程：v-if切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件；v-show只是简单的基于css切换；
+        3.编译条件：v-if是惰性的，如果初始条件为假，则什么也不做；只有在条件第一次变为真时才开始局部编译（编译被缓存？编译被缓存后，然后再切换的时候进行局部卸载); v-show是在任何条件下（首次条件是否为真）都被编译，然后被缓存，而且DOM元素保留；
+        4.性能消耗：v-if有更高的切换消耗；v-show有更高的初始渲染消耗；
+
+    使用场景
+        基于以上区别，因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。
+
+    总结
+        v-if判断是否加载，可以减轻服务器的压力，在需要时加载,但有更高的切换开销;v-show调整DOM元素的CSS的dispaly属性，可以使客户端操作更加流畅，但有更高的初始渲染开销。如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。
+
+4. computed 和 watch 的区别
+    1. computed是根据依赖的值的变化计算得出新的状态,计算的得到的值需要挂载到Vue实例上;
+        而 watch 是监听已经存在的状态,所有 watch 也可以监听 computed 的属性变化
+    2. computed计算得到的值具有缓冲性,当依赖发生变化时,才会去计算新的状态;
+        watch当数据发生变化才会执行
+    3. 从适用场景来说
+        computed 适用于一个数据受多个数据影响的场景
+        而 watch 适用于一个数据影响多个数据的场景
+        computed 用于同步数据的处理
+        watch 可以处理异步数据,复杂的逻辑
+
+    补充
+        1) watch同样可以实现监听多个数据
+            利用computed将多个数据整合成一个对象，再用watch监听合成的对象。
+        2) computed 和 methods 的区别
+            methods是一个方法，它可以接受参数，而computed不能。但computed是可以缓存的，methods不可以。
+        3) computed 是否能依赖其它组件的数据？
+            computed可以依赖其他computed，甚至是其他组件的data
+        4) watch 是一个对象时，它有哪些选项？
+            handler（处理事件）
+            deep 是否深度 （可以利用这个选项监听对象中的属性变动）
+            immediate 是否立即执行
+
+5. 生命周期函数(钩子函数 hook)
+    - beforeCreated ———— 创建Vue实例之前
+        在数据观测和初始化事件还未开始，VUE实例的挂载元素$el和数据对象都为undefined
+        可以进行的事件：加loading事件
+    - created ———— Vue实例创建后
+        完成数据观测，属性和方法的运算，初始化事件，$el属性还没有显示出来
+        可以进行的事件：结束loading，请求数据为mounted作准备
+    - beforeMount ———— 实例挂载到DOM之前
+        在挂载开始之前被调用，相关的render函数首次被调用。实例已完成以下的配置：编译模板，把data里面的数据和模板生成html。注意此时还没有挂载html到页面上。（$el和data都已经初始化，但仍是虚拟DOM节点）
+    - mounted ———— 实例挂载后
+        $el被新创建的vm.$el 替换，并挂载到实例上去之后调用。实例已完成以下的配置：用上面编译好的html内容替换el属性指向的DOM对象。完成模板中的html渲染到html页面中。（VUE实例挂载完成，data.filter成功渲染）
+        可以进行的事件：配合路由钩子使用
+    - beforeUpdate ———— 更新前
+        在数据更新之前调用，发生在虚拟DOM重新渲染和打补丁之前。可以在该钩子中进一步地更改状态，不会触发附加的重渲染过程。
+    - Updated ———— 更新后
+        在由于数据更改导致的虚拟DOM重新渲染和打补丁之后调用。调用时，组件DOM已经更新，所以可以执行依赖于DOM的操作。然而在大多数情况下，应该避免在此期间更改状态，因为这可能会导致更新无限循环。该钩子在服务器端渲染期间不被调用。
+    - beforeDestroy ———— 销毁之前
+        在实例销毁之前调用。实例仍然完全可用。
+    - destroyed ———— 销毁之后
+        在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。该钩子在服务器端渲染期间不被调用。
+
+    简单描述每个周期具体适合哪些场景
+        生命周期钩子的一些使用方法：
+        beforecreate : 可以在这加个loading事件，在加载实例时触发
+        created : 初始化完成时的事件写在这里，如在这结束loading事件，异步请求也适宜在这里调用
+        mounted : 挂载元素，获取到DOM节点
+        updated : 如果对数据统一处理，在这里写上相应函数
+        beforeDestroy : 可以做一个确认停止事件的确认框
+        nextTick : 更新数据后立即操作dom
+
+6. VUE组件data为什么必须是函数
+    Vue组件可能存在多个实例，如果使用对象形式定义data，则会导致它们共用一个data对象，那么状态变更将会影响所有组件实例，这是不合理的。
+    采用函数形式定义，在initData时会将其作为工厂函数返回全新的data对象，有效规避多实例之间状态污染问题。
+    而在Vue根实例创建过程中则不存在该限制，也是因为根实例只能有一个，不需要担心这种情况。
+
+7. Vue中key的作用和工作原理
+    key的作用主要是为了高效的更新虚拟DOM,其原理是vue在patch过程中通过key可以精准判断两个节点是否是同一个，从而避免频繁更新不同元素，使得整个patch过程更加高效，减少DOM操作量，提高性能。
+    另外，若不设置key还可能在列表更新时引发一些隐蔽的bug。
+    vue中在使用相同标签名元素的过渡切换时，也会使用到key属性，其目的也是为了让vue可以区分它们，否则vue只会替换其内部属性而不会触发过渡效果。
+
+
+8. 谈一谈对vue组件化的理解
+    组件是独立和可复用的代码组织单元。组件系统是Vue核心特性之一，它使开发者使用小型、独立和通常可复用的组件构建大型项目；
+    组件化开发能大幅提高应用开发效率、测试性、复用性等；
+    组件使用按分类有：页面组件、业务组件、通用组件；
+    vue的组件是基于配置的，我们通常编写的组件是组件配置而非组件，框架后续会生成其构造函数，它们基于VueComponent,扩展于Vue;
+    vue中常见组件化技术有：属性prop，自定义事件，插槽等，它们主要用于组件通信、扩展等；
+    合理的划分组件，有助于提升应用性能；
+    组件应该是高内聚、低耦合的；
+    遵循单向数据流的原则。
+
+9. 谈一谈对vue设计原则的理解？
+    首先就是渐进式JavaScript框架：与其它大型框架不同的是，Vue被设计为可以自底向上逐层应用。
+    Vue的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。
+    另一方面，当与现代化的工具链以及各种支持类库结合时，Vue也完全能够为复杂的单页应用提供驱动。
+    
+    易用性
+        vue提供数据响应式、声明式模板语法和基于配置的组件系统等核心特性。
+        这些使我们只需要关注应用的核心业务即可，只要会写js,html和css就能轻松编写vue应用。
+    灵活性
+        渐进式框架的最大优点就是灵活性，如果应用足够小，我们可能仅需要vue核心特性即可完成功能；
+        随着应用规模不断扩大，我们才可能逐渐引入路由、状态管理、vue-cli等库和工具；
+        不管是应用体积还是学习难度都是一个逐渐增加的平和曲线。
+    高效性
+        超快的虚拟DOM和diff算法使我们的应用拥有最佳的性能表现。
+        追求高效的过程还在继续，vue3中将引入Proxy对数据响应式改进以及编译器中对于静态内容编译的改进都会让Vue更加高效。
+
+10. 你了解哪些Vue性能优化方法
+    · 路由懒加载
+        const router = new VueRouter({
+        routes: [
+            {path: '/foo',component: ()=>import('./Foo.vue')}
+            ]
+        })
+
+    · keep-alive缓存页面
+        <template>
+            <div id="app">
+                <keep-alive>
+                <router-view />
+                </keep-alive>
+            </div>
+        </template>
+
+    · 使用v-show 复用DOM
+    · v-for 遍历避免同时使用v-if
+        <template v-if="show">
+            <p v-for="v in list" :key="v.id">外层包一个template<p>
+        </template>
+
+    · 长列表性能优化
+    如果列表是纯粹的数据展示，不会有任何变化，就不需要做响应化
+        export default {
+            data: ()  => ({
+                users: []
+            }),
+            async created() {
+                this.users = Object.freeze(获取来的数据)
+            }
+        }
+
+    如果是大数据长列表，可采用虚拟滚动，只渲染少部分区域的内容
+    <recycle-scroller :items="items" :item-size="24">
+        <template v-slot="{item}">
+            <FetchItemView :item="item" @vote="voteItem(item)" />
+        </template>
+    </recycle-scroller>
+
+    · 事件的销毁
+    Vue组件销毁时，会自动解绑它的全部指令及事件监听器，但是仅限于组件本身的事件。
+        created() {
+            this.timer = setInterval(this.refresh, 2000)
+        },
+        beforeDestroy () {
+            clearInterval(this.timer）
+        }
+
+    · 图片懒加载
+    对于图片过多的页面，为了加载页面速度加速。所以很多时候我们需要将页面内未出现在可是区域内的图片先不做加载，等到滚动到可视区域后再去加载 
+        <img v-lazy="/static/img/1.png">
+
+    参考项目： vue-lozyload https://github.com/hilongjw/vue-lazyload
+
+    · 第三方插件按需引入
+    像element-ui这样的第三方组件库可以按需引入，避免体积较大。
+        import Vue from 'vue'
+        import {Button, Select} from 'element-ui'
+        Vue.use(Button)
+        Vue.use(Select)
+
+    无状态的组件标记为函数式组件
+        <template functional>
+        </template>
+
+    · 子组件分割
+    · 变量本地化
+        const base = this.base //不要频繁引用this.base
+
+    服务端渲染 - SSR
+
+11. VUE双向绑定原理
+    mvvm 双向绑定，采用数据劫持结合发布者-订阅者模式的方式，通过 Object.defineProperty() 来劫持各个属性的 setter、getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
+
+    要点：
+        1) 实现一个数据监听器 Observer，能够对数据对象的所有属性进行监听，如有变动可拿到最新值并通知订阅者
+        2) 实现一个指令解析器 Compile，对每个元素节点的指令进行扫描和解析，根据指令模板替换数据，以及绑定相应的更新函数
+        3) 实现一个 Watcher，作为连接 Observer 和 Compile 的桥梁，能够订阅并收到每个属性变动的通知，执行指令绑定的相应回调函数，从而更新视图
+        4) mvvm 入口函数，整合以上三者
+
+    具体步骤：
+        1) 需要 observe 的数据对象进行递归遍历，包括子属性对象的属性，都加上 setter 和 getter
+        2) compile 解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图
+        3) Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁，待属性变动 dep.notice() 通知时，调用自身的 update() 方法，并触发Compile 中绑定的回调。
+12. v-model
+    语法糖
+    v-bind="message" @input="message=$event.target.value"
+
+    v-model利用的是 Object.defineProperty 方法
+    Object.defineProperty （要添加或修改属性的对象, …属性名, 特征对象）
+    在添加属性是可以设置属性以下的特性：
+    1.是否只读
+    2.是否可删除
+    3.是否可遍历
+    4.可以为属性注册像改变事件一样的函数
+
+    代码示例
+        let nameValue = ''
+        let obj = {}
+        Object.defineProperty(obj, 'name', {
+            set(value){
+                console.log('属性被赋值')
+                nameValue = value
+                },
+            get(){
+                console.log('属性被获取值')
+                return nameValue
+                }
+            })
+13. vue-router是什么？有哪些组件？
+    Vue Router 是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。
+    <router-link>和<router-view>和<keep-alive>
+14. vue-router有哪几种导航钩子？
+    全局前置守卫 beforeEach
+    全局后置守卫 afterEach
+    全局解析守卫 beforeResolve
+    路由独享守卫 beforEnter
+    组件内导航守卫 beforeRouteEnter 、beforeRouteUpdate 、beforeRouteLeave
+15. $route和 $router的区别是什么？
+    router为VueRouter的实例，是一个全局路由对象，包含了路由跳转的方法、钩子函数等。
+    route 是路由信息对象||跳转的路由对象，每一个路由都会有一个route对象，是一个局部对象，包含path,params,hash,query,fullPath,matched,name等路由信息参数。   
+16. vue-router实现路由懒加载（动态加载路由）
+    把不同路由对应的组件分割成不同的代码块，然后当路由被访问时才加载对应的组件即为路由的懒加载，可以加快项目的加载速度，提高效率
+    const router = new VueRouter({
+        routes: [
+            {
+            path: '/home',
+            name: 'Home'，
+            component:() = import('../views/home')
+                }
+        ]
+    })
+17. 组件之间的传值？
+    父组件与子组件传值
+    父组件通过标签上面定义传值
+    子组件通过props方法接受数据
+    子组件向父组件传递数据
+    子组件通过$emit方法传递参数
+
+18. 路由之间跳转
+    声明式（标签跳转）<router-link to='home'> router-link
+    编程式（ js跳转）router.push('/home')
+19. vue.cli中怎样使用自定义的组件？有遇到过哪些问题吗？
+    第一步：在components目录新建你的组件文件（indexPage.vue），script一定要export default {}
+    第二步：在需要用的页面（组件）中导入：import indexPage from ‘@/components/indexPage.vue’
+    第三步：注入到vue的子组件的components属性上面,components:{indexPage}
+    第四步：在template视图view中使用
+20. vuex相关
+    （1）vuex是什么？怎么使用？哪种功能场景使用它？
+        vue框架中状态管理。在main.js引入store，注入。新建一个目录store，…… export 。场景有：单页应用中，组件之间的状态。音乐播放、登录状态、加入购物车
+    （2）vuex有哪几种属性？
+        有五种，分别是 State、 Getter、Mutation 、Action、 Module
+        vuex的State特性
+            A、Vuex就是一个仓库，仓库里面放了很多对象。其中state就是数据源存放地，对应于一般Vue对象里面的data
+            B、state里面存放的数据是响应式的，Vue组件从store中读取数据，若是store中的数据发生改变，依赖这个数据的组件也会发生更新
+            C、它通过mapState把全局的 state 和 getters 映射到当前组件的 computed 计算属性中
+        vuex的Getter特性
+            A、getters 可以对State进行计算操作，它就是Store的计算属性
+            B、 虽然在组件内也可以做计算属性，但是getters 可以在多组件之间复用
+            C、 如果一个状态只在一个组件内使用，是可以不用getters
+        vuex的Mutation特性
+            Action 类似于 mutation，不同在于：Action 提交的是 mutation，而不是直接变更状态；Action 可以包含任意异步操作。
+    （3）不用Vuex会带来什么问题？
+        可维护性会下降，想修改数据要维护三个地方；
+        可读性会下降，因为一个组件里的数据，根本就看不出来是从哪来的；
+        增加耦合，大量的上传派发，会让耦合性大大增加，本来Vue用Component就是为了减少耦合，现在这么用，和组件化的初衷相背。
+21. 第一次页面加载会触发哪几个钩子
+    第一次页面加载时会触发 beforeCreate, created, beforeMount, mounted 这几个钩子
+22. DOM 渲染在 哪个周期中就已经完成
+    DOM 渲染在 mounted 中就已经完成了。
+23. vue.js的核心
+    数据驱动和组件化
