@@ -1,0 +1,7 @@
+// 下面 1.2.3行打印的this分别是什么?
+function doSomething(){
+    alert(this);
+}
+1.element.onclick = doSomething;//点击element 元素后
+2.element.onclick = function (){ doSomething() }//点击element 元素后
+3.doSomething() //直接执行

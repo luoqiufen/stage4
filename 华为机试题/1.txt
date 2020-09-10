@@ -1,0 +1,1185 @@
+1.字符串最后一个单词的长度
+
+    题目描述
+    计算字符串最后一个单词的长度，单词以空格隔开。 
+    输入描述:
+    一行字符串，非空，长度小于5000。
+
+    输出描述:
+    整数N，最后一个单词的长度。
+
+    var str=readline();
+    function countStr(str){
+        var arr=str.split(' ');
+        if(arr.length===1){
+            return arr[0].length;
+        }
+        var t=arr[arr.length-1]
+        return t.length;
+    }
+    console.log(countStr(str));
+
+2.计算字符个数
+    题目描述
+    写出一个程序，接受一个有字母和数字以及空格组成的字符串，和一个字符，然后输出输入字符串中含有该字符的个数。不区分大小写。
+    输入描述:
+    输入一个有字母和数字以及空格组成的字符串，和一个字符。
+    输出描述:
+    输出输入字符串中含有该字符的个数。
+
+    var str=readline();
+    var t=readline();
+    function fun(str,t){
+        var str1=str.toLowerCase();
+        var t1=t.toLowerCase();
+        var count=0;
+        for(i in str1){
+            if(str1[i]===t1){
+                count++
+            }
+
+        }
+        return count;
+    }
+    console.log(fun(str,t))
+
+3.明明的随机数
+    题目描述
+    明明想在学校中请一些同学一起做一项问卷调查，为了实验的客观性，他先用计算机生成了N个1到1000之间的随机整数（N≤1000），对于其中重复的数字，只保留一个，把其余相同的数去掉，不同的数对应着不同的学生的学号。然后再把这些数从小到大排序，按照排好的顺序去找同学做调查。请你协助明明完成“去重”与“排序”的工作。
+    Input Param
+    n 输入随机数的个数
+    inputArray n个随机整数组成的数组
+    Return Value
+    OutputArray 输出处理后的随机整数
+    注：测试用例保证输入参数的正确性，答题者无需验证。测试用例不止一组。
+    输入描述:
+    输入多行，先输入随机整数的个数，再输入相应个数的整数
+    输出描述:
+    返回多行，处理后的结果
+
+    while(line=readline()){
+        var arr=[];
+        for(var i=0;i<line;i++){
+            arr.push(readline());        
+        }
+        var tSet=[...new Set(arr)];
+        var setSort=tSet.sort(function(a,b){
+            return a-b;
+        })
+
+        for(var j=0;j<setSort.length;j++){
+            console.log(setSort[j]);
+        }
+    }
+
+4.字符串分隔
+    题目描述
+    •连续输入字符串，请按长度为8拆分每个字符串后输出到新的字符串数组；
+    •长度不是8整数倍的字符串请在后面补数字0，空字符串不处理。
+    输入描述:
+    连续输入字符串(输入2次,每个字符串长度小于100)
+    输出描述:
+    输出到长度为8的新字符串数组
+
+
+    1.字符串长度<8，在字符串末尾补8个0；
+    2.slice函数的使用
+    3.对于字符串长度>8,取循环步长为8，调用slice(i,i+8)对字符串进行分割
+
+    var q='00000000';
+    var arr=[];
+    for(var i=0;i<2;i++){
+        arr.push(readline());
+    }
+    for(var j=0;j<arr.length;j++){
+        if(arr[j].length<=8){
+            var t=arr[j]+q;
+            console.log(t.slice(0,8)); 
+        }else{
+            var len=arr[j].length;
+            for(var i=0;i<len;i+=8){
+                var s=arr[j].slice(i,i+8);
+                if(s.length<8){
+                    var p=s+q;
+                    console.log(p.slice(0,8));
+
+                }else{
+                    console.log(s);
+                }
+
+            }
+
+        }
+    }
+
+5.进制转换
+    题目描述
+    写出一个程序，接受一个十六进制的数值字符串，输出该数值的十进制字符串。（多组同时输入 ）
+    输入描述:
+    输入一个十六进制的数值字符串。
+    输出描述:
+    输出该数值的十进制字符串
+
+    var readline = require('readline');
+    const rl = readline.createInterface({
+        input: process.stdin,
+        ouput: process.stdout
+    });
+    rl.on('line', function(line) {
+        var output = parseInt(line, 16);
+        console.log(output)
+    })
+
+6.质数因子
+    题目描述
+    功能:输入一个正整数，按照从小到大的顺序输出它的所有质数的因子（如180的质数因子为2 2 3 3 5 ）
+    最后一个数后面也要有空格
+    详细描述：
+    函数接口说明：
+    public String getResult(long ulDataInput)
+    输入参数：
+    long ulDataInput：输入的正整数
+    返回值：
+    String
+    输入描述:
+    输入一个long型整数
+    输出描述:
+    按照从小到大的顺序输出它的所有质数的因子，以空格隔开。最后一个数后面也要有空格。
+
+    var num=readline();
+    var arr=[];
+    for(var i=2;i<=num;i++){
+        if(num%i==0){
+            num=num/i;
+            arr.push(i);
+            i=1;
+        }
+    }
+    var result=arr.sort(function(a,b){
+        return a-b;
+    }).join(' ')+' '
+    console.log(result)
+
+7.取近似值
+    题目描述
+    写出一个程序，接受一个正浮点数值，输出该数值的近似整数值。如果小数点后数值大于等于5,向上取整；小于5，则向下取整。
+    输入描述:
+    输入一个正浮点数值
+    输出描述:
+    输出该数值的近似整数值
+
+    1.Math.round函数的调用
+    var num=readline();
+    console.log(Math.round(num));
+    ----------
+    2.parseInt取整的使用
+    var num1=readline();
+    var t=parseInt(num1);
+        var p=num1-t;
+        if(p>=0.5){
+            t+=1
+        }
+    console.log(t);
+
+8.合并表记录
+    题目描述
+    数据表记录包含表索引和数值，请对表索引相同的记录进行合并，即将相同索引的数值进行求和运算，输出按照key值升序进行输出。
+    输入描述:
+    先输入键值对的个数
+    然后输入成对的index和value值，以空格隔开
+    输出描述:
+    输出合并后的键值对（多行）
+
+    var k=parseInt(readline())
+    var obj={}
+    for(var i=0;i<k;i++){
+        arr=readline().split(' ').map(function(item){
+            return parseInt(item);
+        });
+        //key值相等的，合并value
+        if(arr[0] in obj){
+            obj[arr[0]]+=arr[1];
+        }else{
+            obj[arr[0]]=arr[1];
+        }
+    }
+    var newarr=Object.keys(obj);
+    for(var i=0;i<newarr.length;i++){
+        console.log(newarr[i]+' '+obj[newarr[i]]);
+    }
+
+9.提取不重复的数字
+    题目描述
+    输入一个int型整数，按照从右向左的阅读顺序，返回一个不含重复数字的新的整数。
+    输入描述:
+    输入一个int型整数
+    输出描述:
+    按照从右向左的阅读顺序，返回一个不含重复数字的新的整数
+
+    var str3=readline();
+    var arr3=str3.split('').reverse()
+    var arr4=[];
+    for(var i=0;i<arr3.length;i++){
+        if(arr4.indexOf(arr3[i])===-1){
+            arr4.push(arr3[i]);
+        }
+    }
+    console.log(arr4.toString().replace(/,/g,''));
+
+10.字符串个数统计
+    题目描述
+    编写一个函数，计算字符串中含有的不同字符的个数。字符在ACSII码范围内(0~127)。不在范围内的不作统计。
+    输入描述:
+    输入N个字符，字符在ACSII码范围内。
+    输出描述:
+    输出范围在(0~127)字符的个数。
+
+    var str3=readline();
+    var arr3=str3.split('')
+    var arr4=[];
+    for(var i=0;i<arr3.length;i++){
+        if(arr4.indexOf(arr3[i])===-1){
+            arr4.push(arr3[i])
+        }
+
+    }
+    console.log(arr4.length);
+
+11.数字颠倒
+    描述：
+    输入一个整数，将这个整数以字符串的形式逆序输出
+    程序不考虑负数的情况，若数字含有0，则逆序形式也含有0，如输入为100，则输出为001
+    输入描述:
+    输入一个int整数
+    输出描述:
+    将这个整数以字符串的形式逆序输出
+
+    //这样可以吗
+    var numInt=readline();
+    var arr=numInt.split('').reverse();
+    console.log(arr.toString().replace(/,/g,''));
+
+12.字符串反转
+    题目描述
+    写出一个程序，接受一个字符串，然后输出该字符串反转后的字符串。例如：
+    输入描述:
+    输入N个字符
+    输出描述:
+    输出该字符串反转后的字符串
+
+    //和上一题有区别吗
+    var numInt=readline();
+    var arr=numInt.split('').reverse();
+    console.log(arr.toString().replace(/,/g,''));
+
+    ​//不用函数
+    ​var str4=readline();
+    var len=str4.length;
+    var str5=''
+    for(var i=len-1;i>=0;i--){
+        str5+=str4[i];
+
+    }
+    console.log(str5);
+
+13.句子逆序
+    题目描述
+    将一个英文语句以单词为单位逆序排放。例如“I am a boy”，逆序排放后为“boy a am I”
+    所有单词之间用一个空格隔开，语句中除了英文字母外，不再包含其他字符
+    接口说明
+    /**
+    * 反转句子
+    *
+    * @param sentence 原句子
+    * @return 反转后的句子
+    */
+    public String reverse(String sentence);
+    输入描述:
+    将一个英文语句以单词为单位逆序排放。
+    输出描述:
+    得到逆序的句子
+
+    var str6=readline();
+    var arr6=str6.split(' ');
+    var str7=''
+    for(var i=arr6.length-1;i>=0;i--){
+        str7=str7+arr6[i]+' '
+    }
+    console.log(str7.slice(0,str7.length-1));
+
+14.字串的连接最长路径查找
+    题目描述
+    给定n个字符串，请对n个字符串按照字典序排列。
+    输入描述:
+    输入第一行为一个正整数n(1≤n≤1000),下面n行为n个字符串(字符串长度≤100),字符串中只含有大小写字母。
+    输出描述:
+    数据输出n行，输出结果为按照字典序排列的字符串。
+
+    var k=readline();
+    var arr0=[];
+    for(var j=0;j<k;j++){
+        arr0.push(readline());
+    }
+    var tu=arr0.sort();
+    for(var i=0;i<tu.length;i++){
+        console.log(tu[i]);
+    }
+
+15.求int型正整数在内存中存储时1的个数
+    题目描述
+    输入一个int型的正整数，计算出该int型数据在内存中存储时1的个数。
+    输入描述:
+    输入一个整数（int类型）
+    输出描述:
+    这个数转换成2进制后，输出1的个数
+
+    var num=parseInt(readline());
+    var arr=num.toString(2).split('');
+    var t=0;
+    for(var i=0;i<arr.length;i++){
+        if(arr[i]==='1')
+            t++;
+    }
+    console.log(t)
+
+16.购物单
+    题目描述
+    王强今天很开心，公司发给N元的年终奖。王强决定把年终奖用于购物，他把想买的物品分为两类：主件与附件，附件是从属于某个主件的，下表就是一些主件与附件的例子：
+    主件 附件
+    电脑 打印机，扫描仪
+    书柜 图书
+    书桌 台灯，文具
+    工作椅 无
+    如果要买归类为附件的物品，必须先买该附件所属的主件。每个主件可以有 0 个、 1 个或 2 个附件。附件不再有从属于自己的附件。王强想买的东西很多，为了不超出预算，他把每件物品规定了一个重要度，分为 5 等：用整数 1 ~ 5 表示，第 5 等最重要。他还从因特网上查到了每件物品的价格（都是 10 元的整数倍）。他希望在不超过 N 元（可以等于 N 元）的前提下，使每件物品的价格与重要度的乘积的总和最大。
+    设第 j 件物品的价格为 v[j] ，重要度为 w[j] ，共选中了 k 件物品，编号依次为 j 1 ， j 2 ，……， j k ，则所求的总和为：
+    v[j 1 ]w[j 1 ]+v[j 2 ]*w[j 2 ]+ … +v[j k ]*w[j k ] 。（其中 为乘号）
+    请你帮助王强设计一个满足要求的购物单。
+    输入描述:
+    输入的第 1 行，为两个正整数，用一个空格隔开：N m
+    （其中 N （ <32000 ）表示总钱数， m （ <60 ）为希望购买物品的个数。）
+    从第 2 行到第 m+1 行，第 j 行给出了编号为 j-1 的物品的基本数据，每行有 3 个非负整数 v p
+    （其中 v 表示该物品的价格（ v<10000 ）， p 表示该物品的重要度（ 1 ~ 5 ）， q 表示该物品是主件还是附件。如果 q=0 ，表示该物品为主件，如果 q>0 ，表示该物品为附件， q 是所属主件的编号）
+    输出描述:
+    输出文件只有一个正整数，为不超过总钱数的物品的价格与重要度乘积的总和的最大值（ <200000 ）。
+
+    //这个是别人代码，case通过了一部分，等我想到了js简洁版的再补上去
+    https://www.nowcoder.com/questionTerminal/f9c6f980eeec43ef85be20755ddbeaf4
+    来源：牛客网
+
+    //js写的，简单的背包问题，但就是只过80的数据，无语，求解啊
+    var rl = require('readline').createInterface(process.stdin, process.stdout);
+    var n = 0;
+    var arr = [];
+    var index;
+    var value = [];
+    var xvalue = [];
+    var importance = [];
+    var m;
+    var i, j;
+    rl.on('line', function(line) {
+        var tokens = line.trim().split(" ");
+        if (n === 0) {
+            m = parseInt(tokens[0]);
+            n = parseInt(tokens[1], 10);
+            value = new Array();
+            xvalue = new Array();
+            importance = new Array();
+        } else {
+            if (parseInt(tokens[2]) > 0) {
+                xvalue[parseInt(tokens[2], 10) - 1] = xvalue[parseInt(tokens[2], 10) - 1] + parseInt(tokens[0], 10) * parseInt(tokens[1], 10);
+                value[parseInt(tokens[2], 10) - 1] = value[parseInt(tokens[2], 10) - 1] + parseInt(tokens[0], 10)
+            } else {
+                value.push(parseInt(tokens[0], 10));
+                importance.push(parseInt(tokens[1], 10));
+                xvalue.push(parseInt(tokens[0], 10) * parseInt(tokens[1], 10));
+            }
+            n--;
+            if (n === 0) {
+            // console.log(value);
+            // console.log(xvalue);
+                var p = [];
+                for (i = 0; i <= value.length; i++) {
+                    p[i] = new Array();
+                }
+                for (i = 0; i <= m; i++) {
+                    p[0][i] = 0;
+                }
+                for (i = 1; i <= value.length; i++) {
+                    for (j = 0; j <= m; j++) {
+                        if (j - value[i - 1] >= 0)
+                            p[i][j] = Math.max(p[i - 1][j], p[i - 1][j - value[i - 1]] + xvalue[i - 1]);
+                        else p[i][j] = p[i - 1][j];
+                    }
+                }
+            // console.log(p[value.length]);
+                console.log(p[value.length][m]);
+            }
+        }
+    });
+
+17.坐标移动
+    题目描述
+    开发一个坐标计算工具， A表示向左移动，D表示向右移动，W表示向上移动，S表示向下移动。从（0,0）点开始移动，从输入字符串里面读取一些坐标，并将最终输入结果输出到输出文件里面。
+    输入：
+    合法坐标为A(或者D或者W或者S) + 数字（两位以内）
+    坐标之间以;分隔。
+    非法坐标点需要进行丢弃。如AA10; A1A; ; YAD; 等。
+    下面是一个简单的例子 如：
+    A10;S20;W10;D30;X;A1A;B10A11;;A10;
+    处理过程：
+    起点（0,0）
+    + A10 = （-10,0）
+    + S20 = (-10,-20)
+    + W10 = (-10,-10)
+    + D30 = (20,-10)
+    + + x = 无效
+    + A1A = 无效
+    + B10A11 = 无效
+    + 一个空 不影响
+    + A10 = (10,-10)
+    + 结果 （10， -10）
+    输入描述:
+    一行字符串
+    输出描述:
+    最终坐标，以,分隔
+
+    while(line=readline()){
+        var Arr=line.split(";");
+        var x=0;
+    var y=0;
+    var tl=0;
+    var tr=0;
+    var td=0;
+    var tu=0;
+    var Arr2=[]
+    var reg=/^[ADWS]\d+$/;
+    for(var i in Arr){
+        if(reg.test(Arr[i])){
+            Arr2.push(Arr[i]);      
+        }
+    }
+    for(var i in Arr2){
+        if(Arr2[i][0]=='A'){
+            var xl=-parseInt(Arr2[i].slice(1,Arr2[i].length));
+            tl+=xl;
+        }
+
+        if(Arr2[i][0]=='D'){
+            var xr=parseInt(Arr2[i].slice(1,Arr2[i].length));
+            tr+=xr;
+        }
+        if(Arr2[i][0]=='S'){
+            var yd=-parseInt(Arr2[i].slice(1,Arr2[i].length));
+            td+=yd
+        }
+        if(Arr2[i][0]=='W'){
+            var yu=parseInt(Arr2[i].slice(1,Arr2[i].length));
+            tu+=yu;
+        }       
+    }
+
+    x=tl+tr;
+    y=td+tu;
+    console.log(x+','+y);
+
+    }
+
+    ----------
+
+    node 处理
+    第一个引入 readline;
+    第二读取输入的行；
+    第三 使用split()分解成数组
+    第四对数组元素进行map运算； const rl = require('readline').createInterface(process.stdin,process.stdout);
+    const reg = /^([ASWD])\d{1,2}$/;
+    rl.on('line',function(ans){
+    var direction = ans.split(';');
+    var x = 0,y = 0;
+    var to,num;
+    direction.map(function(i){
+        var value = i.match(reg);
+        if(value){
+            to = i.slice(0,1);
+            num = i.slice(1)-0;
+            switch(to){
+                case 'A':x-= num;break;
+                case 'S':x+= num;break;
+                case 'W':y+= num;break;
+                case 'D':y-= num;break;
+            }
+        }
+    });
+    console.log(x+","+y);
+    })
+
+
+    ----------
+    不加+号表示只匹配一个, 加了+号表示一个及一个以上
+    /^[a-z]+[0-9]+$/表示以一个及一个以上的小写字母开头, 紧挨着一个及一个以上的数字结尾
+    /^[a-z][0-9]$/ 表示以一个字母开头紧挨着一个数字并结尾
+    /^[a-z]/ 表示的是以一个字母开头,(并没有指定以后的是什么, 后面可以是任何东西)
+
+18.识别有效的IP地址和掩码并进行分类统计
+    题目描述
+    请解析IP地址和对应的掩码，进行分类识别。要求按照A/B/C/D/E类地址归类，不合法的地址和掩码单独归类。
+    所有的IP地址划分为 A,B,C,D,E五类
+    A类地址1.0.0.0~126.255.255.255;
+    B类地址128.0.0.0~191.255.255.255;
+    C类地址192.0.0.0~223.255.255.255;
+    D类地址224.0.0.0~239.255.255.255；
+    E类地址240.0.0.0~255.255.255.255
+    私网IP范围是：
+    10.0.0.0～10.255.255.255
+    172.16.0.0～172.31.255.255
+    192.168.0.0～192.168.255.255
+    子网掩码为前面是连续的1，然后全是0。（例如：255.255.255.32就是一个非法的掩码）
+    本题暂时默认以0开头的IP地址是合法的，比如0.1.1.2，是合法地址
+    输入描述:
+    多行字符串。每行一个IP地址和掩码，用~隔开。
+    输出描述:
+    统计A、B、C、D、E、错误IP地址或错误掩码、私有IP的个数，之间以空格隔开。
+
+    链接：https://www.nowcoder.com/questionTerminal/de538edd6f7e4bc3a5689723a7435682?commentTags=JavaScript
+    来源：牛客网
+    varreadline = require('readline');
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    varanswer = [0, 0, 0, 0, 0, 0, 0];
+    varitem = [];
+    varip = [];
+    varmask = [];
+    vartemp = 0;
+
+    rl.on('line',function(line) {
+        record(line);
+    }).on('close',function() {
+        output();
+    });
+
+    varrecord =function(input) {
+        item = input.split('~');
+        ip = item[0].split('.');
+        mask = item[1].split('.');
+        temp = answer[5];
+        //错误IP
+        for(vari = 0; i < 4; i++) {
+            if(parseInt(ip[i]) >=0 && parseInt(ip[i]) <= 255) {
+                continue;
+            }
+            else{
+                answer[5]++;
+                break;
+            }
+        }
+        if(temp != answer[5]) {
+            return;
+        }
+        //错误掩码
+        varreg = /01/g;
+        varmask2 ='';
+        for(varj = 0; j < 4; j++) {
+            if(parseInt(mask[j]) >= 0 && parseInt(mask[j]) <= 255) {
+                varmaskTemp = parseInt(mask[j]).toString(2);
+                //不足8位前补0
+                while(maskTemp.length < 8) {
+                    maskTemp ='0'+ maskTemp
+                }
+                mask2 += maskTemp;
+            }
+            else{
+                answer[5]++;
+                return;
+            }
+        }
+        if(temp != answer[5]) {
+            return;
+        }
+        if(reg.test(mask2)) {
+            answer[5]++;
+            return;
+        }
+        //子网掩码不能全1
+        if(!(/0/.test(mask2))){
+            answer[5]++;
+            return;
+        }
+        //私网IP
+        if(ip[0] == 10 || (ip[0] == 172 && ip[1] >= 16 && ip[1] <= 31) || (ip[0] == 192 && ip[1] == 168)) {
+            answer[6]++;
+        }
+        //A
+        if(ip[0] >= 1 && ip[0] <= 126) {
+            answer[0]++;
+            return;
+        }
+        //B
+        if(ip[0] >= 128 && ip[0] <= 191) {
+            answer[1]++;
+            return;
+        }
+        //C
+        if(ip[0] >= 192 && ip[0] <= 223) {
+            answer[2]++;
+            return;
+        }
+        //D
+        if(ip[0] >= 224 && ip[0] <= 239) {
+            answer[3]++;
+            return;
+        }
+        //E
+        if(ip[0] >= 240 && ip[0] <= 255) {
+            answer[4]++;
+        }
+    }
+    varoutput =function() {
+        console.log(answer.join(' '));
+    }
+
+19.简单错误记录
+    开发一个简单错误记录功能小模块，能够记录出错的代码所在的文件名称和行号。
+
+    处理：
+    1、 记录最多8条错误记录，循环记录，对相同的错误记录（净文件名称和行号完全匹配）只记录一条，错误计数增加；
+    2、 超过16个字符的文件名称，只记录文件的最后有效16个字符；
+    3、 输入的文件可能带路径，记录文件名称不能带路径。
+    输入描述:
+    一行或多行字符串。每行包括带路径文件名称，行号，以空格隔开。
+    输出描述:
+    将所有的记录统计并将结果输出，格式：文件名 代码行数 数目，一个空格隔开
+
+    var readline = require('readline');
+    var errors={};
+    var files = [];
+    var path = require('path');
+    const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+    });
+    rl.on('line', function(line){
+    record(line);
+    }).on('close', function() {
+    output();
+    });
+    function record(str) {
+        errs = str.split(' ');
+    ​//node.js中的path.basename方法:用户提取出用 ‘/' 隔开的path的最后一部分​，
+    //由于该方法属于path模块，使用前需要引入path模块（var path= require(“path”) ）​
+    ​
+        filename = path.win32.basename(errs[0]);
+        filename = filename.slice(-16,filename.length) + " " + errs[1];
+        if (errors[filename]) {
+            errors[filename]++;
+        } else {
+            errors[filename] = 1;
+        }
+        if (files.indexOf(filename) === -1) {
+            files.push(filename);
+        }
+    }
+    function output() {
+        files = files.slice(-8, files.length);
+        for (var i=0; i< files.length; i++) {
+            console.log(files[i],errors[files[i]]);
+        }
+    }
+
+20.密码验证合格程序
+    题目描述
+    密码要求:
+    1.长度超过8位
+    2.包括大小写字母.数字.其它符号,以上四种至少三种
+    3.不能有相同长度超2的子串重复
+    说明:长度超过2的子串
+    输入描述:
+    一组或多组长度超过2的子符串。每组占一行
+    输出描述:
+    如果符合要求输出：OK，否则输出NG
+
+    //1.长度超过8位
+    function checkLength(stringPass){
+        if(stringPass==null||stringPass.length<=8)
+        {
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    // 2.包括大小写字母.数字.其它符号,以上四种至少三种
+    function checkCharkinds(stringPass){
+        var digit=0,lowercase=0,uppercase=0,others=0;
+        for(var i=0;i<stringPass.length;i++){
+            if(stringPass[i]>='0'&&stringPass[i]<='9'){
+                digit=1;
+                continue;
+            }
+            else if(stringPass[i]>='a'&&stringPass[i]<='z'){
+                lowercase=1;
+                continue;
+            }
+            else if(stringPass[i]>='A'&&stringPass[i]<='Z'){
+                uppercase=1;
+                continue;
+            }
+            else{
+                others=1;
+                continue;           
+            }
+        }
+        var total=digit+lowercase+uppercase+others;
+        return total>=3?true:false;
+    }
+
+    // 3.不能有相同长度超2的子串重复
+    function checkRepeat(stringPass){
+        for(var i=0;i<stringPass.length-2;i++){
+            var substr1=stringPass.slice(i,i+3);
+            if(stringPass.indexOf(substr1)!=stringPass.lastIndexOf(substr1)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    var readline = require('readline').createInterface(process.stdin,process.stdout);
+    readline.on('line',function(stringPass){
+        if(checkLength(stringPass)&&checkCharkinds(stringPass)&&checkRepeat(stringPass)){
+            console.log('OK');
+        }else{
+            console.log('NG');
+        }
+    })
+
+21.简单密码
+    题目描述
+    密码是我们生活中非常重要的东东，我们的那么一点不能说的秘密就全靠它了。哇哈哈. 接下来渊子要在密码之上再加一套密码，虽然简单但也安全。
+    假设渊子原来一个BBS上的密码为zvbo9441987,为了方便记忆，他通过一种算法把这个密码变换成YUANzhi1987，这个密码是他的名字和出生年份，怎么忘都忘不了，而且可以明目张胆地放在显眼的地方而不被别人知道真正的密码。
+    他是这么变换的，大家都知道手机上的字母： 1–1， abc–2, def–3, ghi–4, jkl–5, mno–6, pqrs–7, tuv–8 wxyz–9, 0–0,就这么简单，渊子把密码中出现的小写字母都变成对应的数字，数字和其他的符号都不做变换，
+    声明：密码中没有空格，而密码中出现的大写字母则变成小写之后往后移一位，如：X，先变成小写，再往后移一位，不就是y了嘛，简单吧。记住，z往后移是a哦。
+    输入描述:
+    输入包括多个测试数据。输入是一个明文，密码长度不超过100个字符，输入直到文件结尾
+    输出描述:
+    输出渊子真正的密文
+
+    function simple_pwd(str11){
+        var res=[]
+    for(var i=0;i<str11.length;i++){
+        //处理数字
+        if(str11[i]>='0'&&str11[i]<='9'){
+            res[i]=str11[i];
+            continue;
+        }
+        //处理大写字母
+
+        else if(str11[i]>='A'&&str11[i]<='Z'){
+            var t=str11[i].toLowerCase();
+                if(t=='z'){
+                    res[i]='a';
+                }else{
+                    res[i]=String.fromCharCode(t.charCodeAt()+1);   
+                }
+
+            continue;
+
+        }
+        //处理小写字母
+
+        else if(str11[i]>='a'&&str11[i]<='c'){
+            res[i]='2';
+            continue;
+        }else if(str11[i]>='d'&&str11[i]<='f'){
+            res[i]='3';
+            continue;
+        }else if(str11[i]>='g'&&str11[i]<='i'){
+            res[i]='4';
+            continue;
+        }else if(str11[i]>='j'&&str11[i]<='l'){
+            res[i]='5';
+            continue;
+        }else if(str11[i]>='m'&&str11[i]<='o'){
+            res[i]='6';
+            continue;
+        }else if(str11[i]>='p'&&str11[i]<='s'){
+            res[i]='7';
+            continue;
+        }else if(str11[i]>='t'&&str11[i]<='v'){
+            res[i]='8';
+            continue;
+        }else if(str11[i]>='w'&&str11[i]<='z'){
+            res[i]='9';
+            continue;
+        }   
+    }
+        return res.join("");
+    }
+    var line;
+    while(line=readline()){
+        var str=line;
+        var res=simple_pwd(str);
+        console.log(res);
+    }
+
+22.汽水瓶
+    有这样一道智力题：“某商店规定：三个空汽水瓶可以换一瓶汽水。小张手上有十个空汽水瓶，她最多可以换多少瓶汽水喝？”答案是5瓶，方法如下：先用9个空瓶子换3瓶汽水，喝掉3瓶满的，喝完以后4个空瓶子，用3个再换一瓶，喝掉这瓶满的，这时候剩2个空瓶子。然后你让老板先借给你一瓶汽水，喝掉这瓶满的，喝完以后用3个空瓶子换一瓶满的还给老板。如果小张手上有n个空汽水瓶，最多可以换多少瓶汽水喝？
+    输入描述:
+    输入文件最多包含10组测试数据，每个数据占一行，仅包含一个正整数n（1<=n<=100），表示小张手上的空汽水瓶数。n=0表示输入结束，你的程序不应当处理这一行。
+    输出描述:
+    对于每组测试数据，输出一行，表示最多可以喝的汽水瓶数。如果一瓶也喝不到，输出0。
+
+    //通过数学分析，最后获得的饮料数是总空瓶数整除2 。
+    while(line=readline()){
+        console.log(parseInt(line/2))
+    }
+
+23.删除字符串中出现次数最少的字符
+    实现删除字符串中出现次数最少的字符，若多个字符出现次数一样，则都删除。输出删除这些单词后的字符串，字符串中其它字符保持原来的顺序。
+    输入描述:
+    字符串只包含小写英文字母, 不考虑非法输入，输入的字符串长度小于等于20个字节。
+    输出描述:
+    删除字符串中出现次数最少的字符后的字符串。
+
+    function deletString(str2){
+        arr2=str2.split('');
+    //reduce求出每个字符对应的个数
+    var result=arr2.reduce(function(allString,name){
+        if(name in allString){
+            allString[name]++;
+        }
+        else{
+            allString[name]=1;
+        }
+        return allString;
+    },{});
+    //排序取最小值
+    var arr=Object.keys(result).sort(function(v1,v2){
+        return result[v1]-result[v2]
+    })
+    //将满足条件的最小字符放入一个数组
+    var arr3=[]
+    var min=result[arr[0]]
+    for(var i=0;i<arr.length;i++){
+        if(result[arr[i]]===min){
+
+            arr3.push(arr[i])
+        }
+    }
+
+    //正则表达式删除最小的元素
+    for(var i=0;i<arr3.length;i++){
+        var reg = new RegExp(arr3[i],"g");
+        var a=str2.replace(reg,"");
+        str2=a;
+    }
+    return str2;
+    }
+    while(line = readline()){
+        console.log(deletString(line));
+    }
+
+24.合唱队
+    题目描述
+    计算最少出列多少位同学，使得剩下的同学排成合唱队形
+    说明：
+    N位同学站成一排，音乐老师要请其中的(N-K)位同学出列，使得剩下的K位同学排成合唱队形。
+    合唱队形是指这样的一种队形：设K位同学从左到右依次编号为1，2…，K，他们的身高分别为T1，T2，…，TK， 则他们的身高满足存在i（1<=i<=K）使得T1
+
+    动态规划不太懂，等算法理解了再更新JavaScript版本https://www.felix021.com/blog/read.php?1587
+
+    #include <iostream>
+    using namespace std;
+    /*来说一下我的思路，两遍最长递增子序列，第一遍从左往右，第二遍从右往左，
+    然后把两遍动态规划的结果相加，取最大的那个，比如8 186 186 150 200 160 130 197 200，
+    第一遍dp的结果是1 1 1 2 2 1 3 4第二遍dp的结果为 1 1 1 2 2 1 3 4，那么相加最大是3，
+    所以需要出列的同学个数就是8-3-1=4.代码如下：
+    */
+    /*
+    算法：动态规划
+    用到概念：递增子序列
+    思想：
+    所有比m[i]小的数都可以作为倒数第二个数，在这些第二个数中，
+    以哪个数结尾的递增子序列最大，就以那个数作为倒数第二个数 。
+    以本身作为最后一个数，前面没有比它小的，则子序列为1.
+    */
+    int main()
+    {   int N,s[100000];int s1[100000],s2[100000];
+        while(cin>>N)
+        {
+        for(int i=0;i<N;i++){cin>>s[i];s1[i]=1;s2[i]=1;}
+            int s3=0;        
+
+        for(int i=0;i<N;i++)
+            {  
+                for(int j=0;j<i;j++)
+                {
+                if(s[i]>s[j])
+                    if(s1[i]<s1[j]+1)//在之前数字基础上递增；
+                        s1[i]=s1[j]+1;
+
+                if(s[N-1-i]>s[N-1-j])//倒序
+                    if(s2[N-1-i]<s2[N-1-j]+1)//在之前数字基础上递增；
+                        s2[N-1-i]=s2[N-1-j]+1;
+                }
+            }
+        for(int i=0;i<N;i++)
+            {
+            if(s3<s1[i]+s2[i])
+                s3=s1[i]+s2[i];
+            }
+        cout<<N-s3+1<<endl;
+
+    //cout<<endl;不加后面会乱码输出
+        }
+    }
+
+25.数据分类处理*
+    题目描述
+    信息社会，有海量的数据需要分析处理，比如公安局分析身份证号码、 QQ 用户、手机号码、银行帐号等信息及活动记录。
+    采集输入大数据和分类规则，通过大数据分类处理程序，将大数据分类输出。﻿
+    输入描述:
+    ﻿一组输入整数序列I和一组规则整数序列R，I和R序列的第一个整数为序列的个数（个数不包含第一个整数）；整数范围为0~0xFFFFFFFF，序列个数不限
+    输出描述:
+    ﻿从R依次中取出R，对I进行处理，找到满足条件的I：
+    I整数对应的数字需要连续包含R对应的数字。比如R为23，I为231，那么I包含了R，条件满足 。
+    按R从小到大的顺序:
+    (1)先输出R；
+    (2)再输出满足条件的I的个数；
+    (3)然后输出满足条件的I在I序列中的位置索引(从0开始)；
+    (4)最后再输出I。
+    附加条件：
+    (1)R需要从小到大排序。相同的R只需要输出索引小的以及满足条件的I，索引大的需要过滤掉
+    (2)如果没有满足条件的I，对应的R不用输出
+    (3)最后需要在输出序列的第一个整数位置记录后续整数序列的个数(不包含“个数”本身)
+    序列I：15,123,456,786,453,46,7,5,3,665,453456,745,456,786,453,123（第一个15表明后续有15个整数）
+    序列R：5,6,3,6,3,0（第一个5表明后续有5个整数）
+    输出：30, 3,6,0,123,3,453,7,3,9,453456,13,453,14,123,6,7,1,456,2,786,4,46,8,665,9,453456,11,456,12,786
+    说明：
+    30—-后续有30个整数
+    3—-从小到大排序，第一个R为0，但没有满足条件的I，不输出0，而下一个R是3
+    6— 存在6个包含3的I
+    0— 123所在的原序号为0
+    123— 123包含3，满足条件
+
+    题目描述这么多，最后干的事是：
+    将规则数组排序(从小到大)，并去重。
+    遍历输入数组，检查输入数组的每个元素是是否包含规则数组中的数字i,如果包含则将输入数组元素位置和元素输出到最终结果中。
+    function dataClear(arr1,arr2){
+    //对数组R进行去重排序
+    var result=arr1.sort().reduce(function(a,b){
+        var length=a.length;
+        if(length===0||a[length-1]!==b){
+            a.push(b);
+
+        }
+        return a;
+
+    },[])
+
+    // 遍历输入数组，检查输入数组的每个元素是是否包含规则数组中的数字i,如果包含则将输入数组元素位置和元素输出到最终结果中。
+
+    var res=[]
+    for(var j=0;j<result.length;j++){
+        //计数
+        var p=0;
+        var temp=[]
+        for(var i=0;i<arr3.length;i++){
+            var t=arr3[i].toString().split('');
+            //检查输入数组的每个元素是是否包含规则数组中的数字i,如果包含则将输入数组元素位置和元素输出到最终结果中
+            if(t.indexOf(result[j].toString())!==-1){
+                p++;
+                temp.push(i);
+                temp.push(arr3[i]);
+        }   
+        }
+        if(temp.length){
+            res.push(result[j]);
+            res.push(p);
+            for(var i=0;i<temp.length;i++){
+                res.push(temp[i])
+            }   
+        }   
+    }
+    res.unshift(res.length)
+    return res;
+    }
+
+    var arr5=[6, 3, 6,3,0];
+    var arr6=[123, 456 ,786 ,453 ,46 ,7 ,5, 3 ,665, 453456, 745, 456, 786, 453, 123]
+    var arr7=dataClear(arr5,arr6)
+    console.log(arr7.toString().replace(/,/g,' '));
+
+26.字符串排序*
+    题目描述
+    编写一个程序，将输入字符串中的字符按如下规则排序。
+    规则 1 ：英文字母从 A 到 Z 排列，不区分大小写。
+    如，输入： Type 输出： epTy
+    规则 2 ：同一个英文字母的大小写同时存在时，按照输入顺序排列。
+    如，输入： BabA 输出： aABb
+    规则 3 ：非英文字母的其它字符保持原来的位置。
+    如，输入： By?e 输出： Be?y
+    样例：
+    输入：
+    A Famous Saying: Much Ado About Nothing(2012/8).
+    输出：
+    A aaAAbc dFgghh : iimM nNn oooos Sttuuuy (2012/8).
+
+    while(line=readline()){
+
+    var t=line.split('')
+    //对字母按照规则 1 ：英文字母从 A 到 Z 排列，不区分大小写。
+    //规则 2 ：同一个英文字母的大小写同时存在时，按照输入顺序排列。
+    var arr=line.match(/[a-zA-Z]/g);
+    for(i=0;i<arr.length;i++){
+            for(j=0;j<arr.length-1-i;j++){
+                if(arr[j].toUpperCase()>arr[j+1].toUpperCase()){
+                    tmp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=tmp;
+                }
+            }
+        }
+    //规则 3 ：非英文字母的其它字符保持原来的位置。
+    var count=-1;
+    var result=t.map(function(item){
+        if(/[a-zA-Z]/.test(item)){
+            count++;
+            return arr[count];
+
+        }else{
+            return item;
+        }
+    })
+
+    console.log(result.join(''));
+    }
+
+27.查找兄弟单词*
+    输入描述:
+    先输入字典中单词的个数，再输入n个单词作为字典单词。
+    输入一个单词，查找其在字典中兄弟单词的个数
+    再输入数字n
+    输出描述:
+    根据输入，输出查找到的兄弟单词的个数
+    示例1
+    输入
+    3 abc bca cab abc 1
+    输出
+    2
+    bca
+
+    var readline = require('readline');
+    var ri = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    var dic = [];
+    var word = "";
+    var n,m;
+    ri.on('line',function(line){
+        n = parseInt(line.split(' ')[0]);
+        dic = line.split(' ').splice(1,n);
+        word = line.split(' ')[n+1];
+        m = parseInt(line.split(' ')[n+2]);
+
+        var brothers = [];
+        var icur = dic.indexOf(word);
+        for(var i = 0; i < n; i ++){
+            if(isBro(word,dic[i])){
+                brothers.push(dic[i]);
+            }
+        }
+        // 注意：输出是两行，而不是一行，示例没给清楚
+        console.log(brothers.length);
+
+        // 将兄弟单词按字典顺序进行排序
+        brothers.sort();
+        if(brothers[m-1]){
+            console.log(brothers[m-1]);
+        }
+
+        function isBro(a,b){
+            if(a == b){
+                return false;
+            }else if(a.split('').sort().join('') == b.split('').sort().join('')){
+                return true;
+            }
+            return false;
+        }
+
+    }) 
+
+
+知识补充：正则表达式
+    语法：
+    /正则表达式主体/修饰符(可选)
+    在 JavaScript 中，正则表达式通常用于两个字符串方法 : search() 和 replace()。
+    正则表达式修饰符：
+    i 执行对大小写不敏感的匹配。
+    g 执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）。
+    m 执行多行匹配。
+    正则表达式模式：
+    [abc] 查找方括号之间的任何字符。
+    [0-9] 查找任何从 0 至 9 的数字。
+    (x|y) 查找任何以 | 分隔的选项。
+
+    元字符是拥有特殊含义的字符：
+    元字符 描述
+    \d 查找数字。
+    \s 查找空白字符。
+    \b 匹配单词边界。
+    \uxxxx 查找以十六进制数 xxxx 规定的 Unicode 字符
+
+    量词:
+    量词 描述
+    n+ 匹配任何包含至少一个 n 的字符串。
+    n* 匹配任何包含零个或多个 n 的字符串。
+    n? 匹配任何包含零个或一个 n 的字符串。
+
+    runoo+b，可以匹配 runoob、runooob、runoooooob 等，+ 号代表前面的字符必须至少出现一次（1次或多次）。
+    runoob，可以匹配 runob、runoob、runoooooob 等， 号代表字符可以不出现，也可以出现一次或者多次（0次、或1次、或多次）。
+    colou?r 可以匹配 color 或者 colour，? 问号代表前面的字符最多只可以出现一次（0次、或1次）
+    特殊字符:
+    $：匹配输入字符串的结尾
+    ^：匹配输入字符串的开始
+    | ：指明两项之间的选择
+
+    限定符：
+
+    {n} n 是一个非负整数。匹配确定的 n 次。例如，‘o{2}’ 不能匹配 “Bob” 中的 ‘o’，但是能匹配 “food” 中的两个 o。
+    {n,} n 是一个非负整数。至少匹配n 次。例如，‘o{2,}’ 不能匹配 “Bob” 中的 ‘o’，但能匹配 “foooood” 中的所有 o。‘o{1,}’ 等价于 ‘o+’。‘o{0,}’ 则等价于 ‘o*’。
+    {n,m} m 和 n 均为非负整数，其中n <= m。最少匹配 n 次且最多匹配 m 次。例如，“o{1,3}” 将匹配 “fooooood” 中的前三个 o。‘o{0,1}’ 等价于 ‘o?’。请注意在逗号和两个数之间不能有空格。
+    使用 RegExp 对象：
+    在 JavaScript 中，RegExp 对象是一个预定义了属性和方法的正则表达式对象。
+
+    test() 方法是一个正则表达式方法。
+    test() 方法用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true，否则返回 false。
+
+    以下实例用于搜索字符串中的字符 “e”：
+    var patt = /e/; patt.test("The best things in life are free!");
+    你可以不用设置正则表达式的变量，以上两行代码可以合并为一行：
+    /e/.test("The best things in life are free!")
+
+    使用 exec()
+    exec() 方法是一个正则表达式方法。
+    exec() 方法用于检索字符串中的正则表达式的匹配。
+    该函数返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null。
+
+    /e/.exec("The best things in life are free!");
+    字符串中含有 “e”，所以该实例输出为:
+    e
+
+    例子：判断字符串是否全部为字母
+
+    val = "123456"
+    var isletter = /^[a-zA-Z]+$/.test(val);
+    1
+    2
+    判断是否全为数字
+
+    val = "123456"
+    var isnum = /^\d+$/.test(val);
+
+

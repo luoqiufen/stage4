@@ -1,0 +1,48 @@
+1.JAVA题目2-3级
+    请编写一个函数（允许增加子函数），计算n x m的棋盘格子（n为横向的格子数，m为竖向的格子数）沿着各自边缘线从左上角走到右下角，总共有多少种走法，要求不能走回头路，即：只能往右和往下走，不能往左和往上走。
+
+    while(str=readline()){
+        str=str.split(' ');
+        m=parseInt(str[0]);
+        n=parseInt(str[1]);
+    console.log(fn(0,0,m,n));
+    }
+    
+    function fn(a,b,m,n){
+        if(a==m||b==n){
+            return 1
+        }
+        return fn(a+1,b,m,n)+fn(a,b+1,m,n);
+    }
+
+2.在字符串中找出连续最长的数字串
+    样例输出
+    输出123058789，函数返回值9
+    输出54761，函数返回值5
+    接口说明
+    函数原型：
+    unsignedint Continumax(char** pOutputstr,  char* intputstr)
+    输入参数：
+    char* intputstr  输入字符串；
+    输出参数：
+    char** pOutputstr: 连续最长的数字串，如果连续最长的数字串的长度为0，应该返回空字符串；如果输入字符串是空，也应该返回空字符串；  
+    返回值：连续最长的数字串的长度
+    while(str=readline()){
+        var res=findStr(str);
+        console.log(res);
+    }
+    function findStr(str){
+        var res=str.match(/[0-9]+/g);
+        var long='';
+        var n=0;
+        for(var i=0; i<res.length; i++){
+            if(res[i].length>n){
+                n=res[i].length;
+                long=res[i];
+            }else if (res[i].length===n) {
+                long+=res[i];
+            }
+        }
+        return long+','+n;
+    }
+ 
