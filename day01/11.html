@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    p{
+        text-align: center;
+    }
+    span{
+        cursor: pointer;
+        margin: 20px;
+        background: rgb(159, 239, 247)
+    }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>
+            <img :src="img" alt="">
+        </p>
+        <p>
+            <span v-for="(num,i) in nums" @click="change(i)" :style="sty" :key="i"> {{num}} </span>
+        </p>  
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                index:0,
+                nums:[1,2,3,4,5],
+                imgs:[
+                    './img/10.jpg',
+                    './img/11.jpg',
+                    './img/12.jpg',
+                    './img/13.jpg',
+                    './img/9.jpg'
+                ],
+                img:'./img/10.jpg',
+                bcl:'background:lightgreen',
+                sty:''
+            }, 
+            methods: {
+                change(i){
+                    this.index=i;
+                    this.img=this.imgs[i];
+                    this.sty = this.bcl;
+                }
+            },
+        })
+    </script>
+</body>
+</html>
